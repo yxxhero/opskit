@@ -3,6 +3,7 @@ import './App.css';
 import logo from './logo.png'
 import { Form, Button, Layout, Menu, Breadcrumb } from 'antd';
 import { TopTips } from './component/toptips/toptips'
+import { SearchIndex } from './component/search/search'
 
 const { Header, Footer, Content } = Layout;
 const FormItem = Form.Item;
@@ -21,7 +22,8 @@ class App extends Component {
            defaultSelectedKeys={['2']}
            style={{ display: "inline-block", lineHeight: '64px' }}
          >
-           <Menu.Item key="1">web服务</Menu.Item>
+           <Menu.Item key="1">首页</Menu.Item>
+           <Menu.Item key="4">web服务</Menu.Item>
            <Menu.Item key="2">数据库</Menu.Item>
            <Menu.Item key="3">安全</Menu.Item>
          </Menu>
@@ -48,7 +50,7 @@ class App extends Component {
            <Breadcrumb.Item>List</Breadcrumb.Item>
            <Breadcrumb.Item>App</Breadcrumb.Item>
          </Breadcrumb>
-         <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>Content</div>
+			<SearchIndex/>
        </Content>
        <Footer style={{ textAlign: 'center' }}>
          Ant Design ©2018 Created by Ant UED
