@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import logo from './logo.png'
-import { Form, Button, Layout, Menu, Breadcrumb } from 'antd';
+import { Form, Button, Layout, Menu } from 'antd';
 import { TopTips } from './component/toptips/toptips'
 import { SearchIndex } from './component/search/search'
 
@@ -19,7 +19,7 @@ class App extends Component {
          <Menu
            theme="dark"
            mode="horizontal"
-           defaultSelectedKeys={['2']}
+           defaultSelectedKeys={['1']}
            style={{ display: "inline-block", lineHeight: '64px' }}
          >
            <Menu.Item key="1">首页</Menu.Item>
@@ -45,11 +45,6 @@ class App extends Component {
 			 </Form>
        </Header>
        <Content style={{ padding: '0 50px' }}>
-         <Breadcrumb style={{ margin: '16px 0' }}>
-           <Breadcrumb.Item>Home</Breadcrumb.Item>
-           <Breadcrumb.Item>List</Breadcrumb.Item>
-           <Breadcrumb.Item>App</Breadcrumb.Item>
-         </Breadcrumb>
 			<SearchIndex/>
        </Content>
        <Footer style={{ textAlign: 'center' }}>

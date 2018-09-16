@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Col, Row, Input } from 'antd';
+import { Card, Col, Row, Input, Breadcrumb } from 'antd';
 
 const Search = Input.Search;
 class SearchIndex extends Component {
@@ -7,6 +7,10 @@ class SearchIndex extends Component {
     render(){
 	    return (
           <div>
+         <Breadcrumb style={{ margin: '16px 0' }}> 
+           <Breadcrumb.Item>首页</Breadcrumb.Item>
+           <Breadcrumb.Item>搜索</Breadcrumb.Item>
+         </Breadcrumb>
             <Row gutter={16}>
               <Col span={24}>
 				<div>
