@@ -14,13 +14,13 @@ class App extends Component {
        <TopTips  />
        <Header>
          <div className="logo">
-			<img src={logo} alt="" style={{width: 120}}/>
+			<img src={logo} alt="" style={{width: 210}}/>
          </div>
          <Menu
            theme="dark"
            mode="horizontal"
            defaultSelectedKeys={['1']}
-           style={{ display: "inline-block", lineHeight: '64px' }}
+           style={{ display: "inline-block", lineHeight: '64px' , marginLeft: '40px'}}
          >
            <Menu.Item key="1">首页</Menu.Item>
            <Menu.Item key="4">web服务</Menu.Item>

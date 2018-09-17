@@ -6,5 +6,6 @@ html, body {
 
 #root, .layout {
   height: 100%;
+  min-width: 1400px;
 }
 
