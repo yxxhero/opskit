@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+
 import './App.css';
 import logo from './logo.png'
 import { Form, Button, Layout, Menu } from 'antd';
@@ -45,7 +47,13 @@ class App extends Component {
 			 </Form>
        </Header>
        <Content style={{ padding: '0 50px' }}>
-			<SearchIndex/>
+			<BrowserRouter>
+			    <div>
+			       <Switch> 
+			           <Route component={SearchIndex}></Route>
+			       </Switch>
+			    </div>
+			</BrowserRouter>
        </Content>
        <Footer style={{ textAlign: 'center' }}>
          Ant Design ©2018 Created by Ant UED
