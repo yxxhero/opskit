@@ -19,13 +19,13 @@ class App extends Component {
          <Menu
            theme="dark"
            mode="horizontal"
-           defaultSelectedKeys={['1']}
+           defaultSelectedKeys={["index"]}
            style={{ display: "inline-block", lineHeight: '64px' , marginLeft: '40px'}}
          >
-           <Menu.Item key="1">首页</Menu.Item>
-           <Menu.Item key="4">web服务</Menu.Item>
-           <Menu.Item key="2">数据库</Menu.Item>
-           <Menu.Item key="3">安全</Menu.Item>
+           <Menu.Item key="index">首页</Menu.Item>
+           <Menu.Item key="web">web服务</Menu.Item>
+           <Menu.Item key="database">数据库</Menu.Item>
+           <Menu.Item key="security">安全</Menu.Item>
          </Menu>
 			 <Form layout="inline" style={{margin: "12px auto", float: "right"}}>
         		<FormItem style={{marginLeft: 16, marginRight: 0}}>
