@@ -12,3 +12,8 @@ export function getRedirectPath({type, avatar}){
 export function getChatId(userId, targetId){
 	return [userId, targetId].sort().join('_')
 }
+
+export function replaceAll(s,f,e){
+    var reg=new RegExp(f,"g"); //创建正则RegExp对象   
+    return s.replace(reg,e); 
+}

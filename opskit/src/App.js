@@ -3,32 +3,24 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import './App.css';
 import logo from './logo.png'
-import { Form, Button, Layout, Menu } from 'antd';
+import { Form, Button, Layout } from 'antd';
 import { TopTips } from './component/toptips/toptips'
 import { SearchIndex } from './component/search/search'
+import MenuList from './component/menu/menu'
 
 const { Header, Footer, Content } = Layout;
 const FormItem = Form.Item;
 class App extends Component {
   render() {
     return (
+	<BrowserRouter>
      <Layout className="layout">
        <TopTips  />
        <Header>
          <div className="logo">
 			<img src={logo} alt="" style={{width: 210}}/>
          </div>
-         <Menu
-           theme="dark"
-           mode="horizontal"
-           defaultSelectedKeys={["index"]}
-           style={{ display: "inline-block", lineHeight: '64px' , marginLeft: '40px'}}
-         >
-           <Menu.Item key="index">首页</Menu.Item>
-           <Menu.Item key="web">web服务</Menu.Item>
-           <Menu.Item key="database">数据库</Menu.Item>
-           <Menu.Item key="security">安全</Menu.Item>
-         </Menu>
+			<MenuList />
 			 <Form layout="inline" style={{margin: "12px auto", float: "right"}}>
         		<FormItem style={{marginLeft: 16, marginRight: 0}}>
         		  <Button
@@ -47,18 +39,18 @@ class App extends Component {
 			 </Form>
        </Header>
        <Content style={{ padding: '0 50px' }}>
-			<BrowserRouter>
 			    <div>
 			       <Switch> 
+			           <Route path="/index" component={SearchIndex}></Route>
 			           <Route component={SearchIndex}></Route>
 			       </Switch>
 			    </div>
-			</BrowserRouter>
        </Content>
        <Footer style={{ textAlign: 'center' }}>
          Ant Design ©2018 Created by Ant UED
        </Footer>
      </Layout>
+	</BrowserRouter>
     );
   }
 }

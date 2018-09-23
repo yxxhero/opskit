@@ -3,6 +3,9 @@ import { Card, Col, Row, Input, Breadcrumb } from 'antd';
 
 const Search = Input.Search;
 class SearchIndex extends Component {
+    componentDidMount () {
+		console.log(this.props)	
+	} 
 
     render(){
 	    return (

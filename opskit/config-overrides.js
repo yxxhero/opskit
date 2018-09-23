@@ -10,7 +10,8 @@ module.exports = function override(config, env) {
    config = injectBabelPlugin(
        ['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }],
        config
-       ) 
+       ); 
+   config = injectBabelPlugin('transform-decorators-legacy',config);
    config = rewireEslint(config, env, overrideEslintOptions);
   return config;
 };
