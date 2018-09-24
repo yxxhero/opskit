@@ -1,5 +1,6 @@
 const { injectBabelPlugin } = require('react-app-rewired');
 const rewireEslint = require('react-app-rewire-eslint');
+const rewireLess = require('react-app-rewire-less');
 
 function overrideEslintOptions(options) {
   // do stuff with the eslint options...
@@ -13,5 +14,6 @@ module.exports = function override(config, env) {
        ); 
    config = injectBabelPlugin('transform-decorators-legacy',config);
    config = rewireEslint(config, env, overrideEslintOptions);
+   config = rewireLess(config, env);
   return config;
 };

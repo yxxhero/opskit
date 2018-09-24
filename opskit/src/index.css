@@ -4,7 +4,7 @@ html, body {
   font-family: sans-serif;
 }
 
-#root, .layout {
+#root, .content {
   height: 100%;
   min-width: 1400px;
 }
