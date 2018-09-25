@@ -12,7 +12,7 @@ class CustomLayout extends Component {
   render() {
     const { CustomContent } = this.props; 
     return (
-     <Layout className="layout">
+     <Layout>
        <TopTips  />
        <Header>
          <div className="logo">
