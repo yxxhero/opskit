@@ -1,5 +1,5 @@
 import React from 'react';
-import { Breadcrumb, List, Avatar, Icon } from 'antd';
+import { Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
 
 const listData = [];
 for (let i = 0; i < 23; i++) {
@@ -28,6 +28,8 @@ class WebIndex extends React.Component {
            <Breadcrumb.Item>首页</Breadcrumb.Item>
            <Breadcrumb.Item>Web</Breadcrumb.Item>
          </Breadcrumb>
+           <Row gutter={16}>
+				<Col span={18}>
         	<List
             itemLayout="vertical"
             bordered={true}
@@ -40,6 +42,7 @@ class WebIndex extends React.Component {
             dataSource={listData}
             renderItem={item => (
               <List.Item
+                style={{background: "white"}}
                 key={item.title}
                 actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
                 extra={<img width={250} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
@@ -53,7 +56,10 @@ class WebIndex extends React.Component {
               </List.Item>
             )}
           />
-</div>)
+            </Col>
+          </Row>
+         </div>
+		)
     }
 }
 export default WebIndex
