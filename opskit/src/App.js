@@ -11,6 +11,9 @@ class App extends Component {
            <Switch> 
                <Route path="/login" component={LoginPage}></Route>
                <Route path="/web" component={WebPage}></Route>
+               <Route path="/database" component={WebPage}></Route>
+               <Route path="/docker" component={WebPage}></Route>
+               <Route path="/security" component={WebPage}></Route>
                <Route path="/index" component={SearchPage}></Route>
                <Route component={SearchPage}></Route>
            </Switch>

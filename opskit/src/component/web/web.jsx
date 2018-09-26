@@ -1,6 +1,7 @@
 import React from 'react';
-import { Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
+import { Card, Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
 
+const { Meta } = Card;
 const listData = [];
 for (let i = 0; i < 23; i++) {
   listData.push({
@@ -28,8 +29,8 @@ class WebIndex extends React.Component {
            <Breadcrumb.Item>首页</Breadcrumb.Item>
            <Breadcrumb.Item>Web</Breadcrumb.Item>
          </Breadcrumb>
-           <Row gutter={16}>
-				<Col span={18}>
+           <Row gutter={32}>
+				<Col span={19}>
         	<List
             itemLayout="vertical"
             bordered={true}
@@ -37,7 +38,7 @@ class WebIndex extends React.Component {
               onChange: (page) => {
                 console.log(page);
               },
-              pageSize: 3,
+              pageSize: 5,
             }}
             dataSource={listData}
             renderItem={item => (
@@ -56,6 +57,19 @@ class WebIndex extends React.Component {
               </List.Item>
             )}
           />
+            </Col>
+            <Col span={5}>
+                <Card
+                  style={{ width: "100%" }}
+                  cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+                  actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+                >
+                  <Meta
+                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                    title="web资深运维"
+                    description="web就是我的使命"
+                  />
+                </Card>
             </Col>
           </Row>
          </div>
