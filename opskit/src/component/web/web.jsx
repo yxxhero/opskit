@@ -19,6 +19,22 @@ const IconText = ({ type, text }) => (
     {text}
   </span>
 );
+
+const data = [
+  {
+    title: 'Ant Design Title 1',
+  },
+  {
+    title: 'Ant Design Title 2',
+  },
+  {
+    title: 'Ant Design Title 3',
+  },
+  {
+    title: 'Ant Design Title 4',
+  },
+];
+
 class WebIndex extends React.Component {
 
 
@@ -59,6 +75,8 @@ class WebIndex extends React.Component {
           />
             </Col>
             <Col span={5}>
+				<Row>
+                 <Col span={24}>
                 <Card
                   style={{ width: "100%" }}
                   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
@@ -70,6 +88,30 @@ class WebIndex extends React.Component {
                     description="web就是我的使命"
                   />
                 </Card>
+                 </Col>
+				</Row>
+				<br />
+				<Row>
+                 <Col span={24}>
+            <List
+              header="热门文章"
+              itemLayout="horizontal"
+              dataSource={data}
+              bordered={true}
+              renderItem={item => (
+                <List.Item 
+	    	    style={{background: "white"}}
+			    >
+                  <List.Item.Meta
+                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+                    title={<a href="https://ant.design">{item.title}</a>}
+                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                  />
+                </List.Item>
+              )}
+            />
+             </Col>
+			</Row>
             </Col>
           </Row>
          </div>
