@@ -22,7 +22,7 @@ class CustomLayout extends Component {
 			<SideBar />
        </Header>
        <Content style={{ padding: '0 50px' }}>
-			    <div>
+			    <div style={{ minHeight: window.innerHeight - 68.8 * 3 +27.8 }}>
 			       {CustomContent}
 			    </div>
        </Content>
