@@ -1,12 +1,12 @@
 import React from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import './login.less'
+import { Form, Icon, Input, Button } from 'antd';
+import './register.less'
 import logo from '../../../style/img/logo.png'
 
 const FormItem = Form.Item;
 
 @Form.create()
-class LoginPage extends React.Component {
+class RegisterPage extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -39,15 +39,22 @@ class LoginPage extends React.Component {
                             )}
                         </FormItem>
                         <FormItem>
-                            {getFieldDecorator('remember', {
-                                valuePropName: 'checked',
-                                initialValue: true,
+                            {getFieldDecorator('confirmpassword', {
+                                rules: [{ required: true, message: '请输入确认密码!' }],
                             })(
-                                <Checkbox>记住我</Checkbox>
+                                <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="确认密码" />
                             )}
-                            <a className="login-form-forgot" href="" style={{float: 'right'}}>忘记密码</a>
+                        </FormItem>
+                        <FormItem>
+                            {getFieldDecorator('email', {
+									rules: [{ required: true, message: '请输入正确的邮箱格式!' }, {type: 'email', message: '请输入正确的邮箱地址!'}],
+                            })(
+                                <Input prefix={<Icon type="mail" style={{ fontSize: 13 }} />} placeholder="邮箱" />
+                            )}
+                        </FormItem>
+                        <FormItem>
                             <Button type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}}>
-                                登录
+                               注册 
                             </Button>
                         </FormItem>
                     </Form>
@@ -58,4 +65,4 @@ class LoginPage extends React.Component {
     }
 }
 
-export default LoginPage
+export default RegisterPage 

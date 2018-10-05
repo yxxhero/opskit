@@ -9,12 +9,16 @@ class SideBar extends Component {
   handlelogin = () => {
       this.props.history.push("/login"); 
   }
+  handleregister = () => {
+      this.props.history.push("/register"); 
+  }
   render() {
     return (
 			 <Form layout="inline" style={{margin: "12px auto", float: "right"}}>
         		<FormItem style={{marginLeft: 16, marginRight: 0}}>
         		  <Button
         		    type="primary"
+			        onClick={this.handleregister}
         		  >
 					注册
         		  </Button>
