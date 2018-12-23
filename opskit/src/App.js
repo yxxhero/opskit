@@ -4,6 +4,7 @@ import { SearchPage } from './component/pages/searchpage/searchpage'
 import LoginPage from './component/pages/login/login'
 import RegisterPage from './component/pages/register/register'
 import { WebPage } from './component/pages/web/web'
+import { VideoPage } from './component/pages/video/video'
 
 class App extends Component {
   render() {
@@ -12,6 +13,7 @@ class App extends Component {
            <Switch> 
                <Route path="/login" component={LoginPage}></Route>
                <Route path="/register" component={RegisterPage}></Route>
+               <Route path="/video" component={VideoPage}></Route>
                <Route path="/web" component={WebPage}></Route>
                <Route path="/database" component={WebPage}></Route>
                <Route path="/docker" component={WebPage}></Route>

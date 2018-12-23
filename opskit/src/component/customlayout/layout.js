@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './layout.css';
 import logo from '../../style/img/logo.png'
-import { Layout } from 'antd';
+import { Layout, BackTop } from 'antd';
 import { TopTips } from '../../component/toptips/toptips'
 import SideBar from '../../component/sidebar/sidebar'
 import MenuList from '../../component/menu/menu'
@@ -23,6 +23,7 @@ class CustomLayout extends Component {
        </Header>
        <Content style={{ padding: '0 50px' }}>
 			    <div style={{ minHeight: window.innerHeight - 68.8 * 3 +27.8 }}>
+                    <BackTop />
 			       {CustomContent}
 			    </div>
        </Content>
