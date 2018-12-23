@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Form, Button, Select, Divider} from 'antd';
+import {Card, Icon, Avatar, Row, Col, Form, Button, Select, Divider} from 'antd';
 import "./video.css"
 
 const formItemLayout = {
@@ -12,6 +12,7 @@ const formTailLayout = {
   wrapperCol: { span: 8, offset: 16 },
 }
 const Option = Select.Option;
+const { Meta  } = Card;
 
 function handleChange(value) {
   console.log(`selected ${value}`);
@@ -41,6 +42,7 @@ class VideoIndex extends Component {
         const { getFieldDecorator  } = this.props.form;
 	    return (
                 <div style={{ textAlign: 'center', margin: '16px 0' }}>
+                  <Row>
                   <Form layout="inline"  hideRequiredMark>
                    <Form.Item {...formItemLayout} label="技术分类">
                      {getFieldDecorator('techsort', {
@@ -116,7 +118,58 @@ class VideoIndex extends Component {
                      </Button>
                    </Form.Item>
                  </Form>
+               </Row>
                    <Divider />
+                <Row gutter={16}>
+                  <Col span={6}>
+   						 <Card
+   						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+   						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+   						 >
+   						   <Meta
+   						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+   						     title="Card title"
+   						     description="This is the description"
+   						   />
+   						 </Card>
+                  </Col>
+                  <Col span={6}>
+ 						 <Card
+ 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+ 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 						 >
+ 						   <Meta
+ 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+ 						     title="Card title"
+ 						     description="This is the description"
+ 						   />
+ 						 </Card>
+                  </Col>
+                  <Col span={6}>
+ 						 <Card
+ 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+ 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 						 >
+ 						   <Meta
+ 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+ 						     title="Card title"
+ 						     description="This is the description"
+ 						   />
+ 						 </Card>
+                  </Col>
+                  <Col span={6}>
+ 						 <Card
+ 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
+ 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 						 >
+ 						   <Meta
+ 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
+ 						     title="Card title"
+ 						     description="This is the description"
+ 						   />
+ 						 </Card>
+                  </Col>
+                </Row>
               </div>
 		)
 	}
