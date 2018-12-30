@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Card, Icon, Avatar, Row, Col, Form, Button, Select, Divider} from 'antd';
+import { withRouter  } from 'react-router-dom'
 import "./video.css"
 
 const formItemLayout = {
@@ -26,7 +27,7 @@ function handleFocus() {
   console.log('focus');
 }
 
-
+@withRouter
 @Form.create()
 class VideoIndex extends Component {
 
@@ -36,6 +37,10 @@ class VideoIndex extends Component {
     
     check = () => {
         console.log("check");
+    }
+    
+    videoclick = (e) => {
+        console.log(e);
     }
 
     render(){
@@ -274,7 +279,7 @@ class VideoIndex extends Component {
  						 <Card
                            style={{ width: 250  }}
  						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
- 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 						   actions={[<Icon type="setting" onClick={this.videoclick} />, <Icon type="edit" />, <Icon type="ellipsis" />]}
  						 >
  						   <Meta
  						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
