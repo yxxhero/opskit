@@ -30,6 +30,20 @@ function handleFocus() {
 @withRouter
 @Form.create()
 class VideoIndex extends Component {
+    constructor () {
+      super()
+      this.state = { 
+        card_list : [
+          {"title": "example", "img_src": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png", "avatar_src": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png", "key": "1", "video_id": "11"},
+          {"title": "example", "img_src": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png", "avatar_src": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png", "key": "2", "video_id": "12"},
+          {"title": "example", "img_src": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png", "avatar_src": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png", "key": "3", "video_id": "13"},
+          {"title": "example", "img_src": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png", "avatar_src": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png", "key": "5", "video_id": "15"},
+          {"title": "example", "img_src": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png", "avatar_src": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png", "key": "6", "video_id": "16"},
+          {"title": "example", "img_src": "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png", "avatar_src": "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png", "key": "7", "video_id": "17"},
+        ]
+      }
+        
+    }
 
     componentDidMount () {
 		console.log(this.props)	
@@ -44,7 +58,107 @@ class VideoIndex extends Component {
     }
 
     render(){
-        const { getFieldDecorator  } = this.props.form;
+      const { getFieldDecorator  } = this.props.form;
+      const card_list = this.state.card_list;
+      let video_card_list = []; 
+      let card_list_len = this.state.card_list.length;
+      if(card_list_len){
+        let card_list_mod = card_list_len % 4;
+        let card_list_consult = parseInt(card_list_len/4, 10);
+            let key_num = 1;
+            for ( let item in [...Array(card_list_consult).keys()]){
+              video_card_list.push(
+              <Row gutter={16} type="flex" justify="center" key={key_num}>
+                <Col span={5} key={card_list[item * 4]["video_id"]}>
+ 	                  	 <Card
+                           style={{ width: 250  }}
+ 	                  	   cover={<img alt={card_list[item * 4]["title"]} src={card_list[item * 4]["img_src"]} />}
+ 	                  	   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 	                  	 >
+ 	                  	   <Meta
+ 	                  	     avatar={<Avatar src={card_list[item * 4]["avatar_src"]} />}
+ 	                  	     title="Card title"
+ 	                  	     description="This is the description"
+ 	                  	   />
+ 	                  	 </Card>
+               </Col>
+                <Col span={5} key={card_list[item * 4 + 1]["video_id"]}>
+ 	                  	 <Card
+                             style={{ width: 250  }}
+ 	                  	   cover={<img alt={card_list[item * 4 + 1]["title"]} src={card_list[item * 4 + 1]["img_src"]} />}
+ 	                  	   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 	                  	 >
+ 	                  	   <Meta
+ 	                  	     avatar={<Avatar src={card_list[item * 4 + 1]["avatar_src"]} />}
+ 	                  	     title="Card title"
+ 	                  	     description="This is the description"
+ 	                  	   />
+ 	                  	 </Card>
+               </Col>
+                <Col span={5} key={card_list[item * 4 + 2]["video_id"]}>
+ 	                  	 <Card
+                             style={{ width: 250  }}
+ 	                  	   cover={<img alt={card_list[item * 4 + 2]["title"]} src={card_list[item * 4 + 2 ]["img_src"]} />}
+ 	                  	   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 	                  	 >
+ 	                  	   <Meta
+ 	                  	     avatar={<Avatar src={card_list[item * 4 + 2]["avatar_src"]} />}
+ 	                  	     title="Card title"
+ 	                  	     description="This is the description"
+ 	                  	   />
+ 	                  	 </Card>
+               </Col>
+                <Col span={5} key={card_list[item * 4 + 3]["video_id"]}>
+ 	                  	 <Card
+                             style={{ width: 250  }}
+ 	                  	   cover={<img alt={card_list[item * 4 + 3]["title"]} src={card_list[item * 4 + 3]["img_src"]} />}
+ 	                  	   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 	                  	 >
+ 	                  	   <Meta
+ 	                  	     avatar={<Avatar src={card_list[item * 4 + 3]["avatar_src"]} />}
+ 	                  	     title="Card title"
+ 	                  	     description="This is the description"
+ 	                  	   />
+ 	                  	 </Card>
+               </Col>
+               </Row>
+             )
+              video_card_list.push(
+                   <Divider key={"divider" + key_num}/>
+              )
+            key_num +=1;
+            }
+if(card_list_mod){
+            let col_list = [];
+            for ( let item in [...Array(card_list_mod).keys()]){
+              col_list.push(
+                <Col span={5} key={card_list[item]["video_id"]}>
+ 	                  	 <Card
+                             style={{ width: 250  }}
+ 	                  	   cover={<img alt={card_list[item]["title"]} src={card_list[item]["img_src"]} />}
+ 	                  	   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 	                  	 >
+ 	                  	   <Meta
+ 	                  	     avatar={<Avatar src={card_list[item]["avatar_src"]} />}
+ 	                  	     title="Card title"
+ 	                  	     description="This is the description"
+ 	                  	   />
+ 	                  	 </Card>
+               </Col>
+             )
+            }
+          video_card_list.push(
+              <Row gutter={16} type="flex" justify="center" key={key_num + 1}>
+                {col_list}
+               </Row>
+          )
+video_card_list.push(
+              <Divider key={"divider" + key_num}/>
+         )
+
+}
+}
+
 	    return (
                 <div style={{ textAlign: 'center', margin: '16px 0' }}>
                   <Row>
@@ -125,170 +239,7 @@ class VideoIndex extends Component {
                  </Form>
                </Row>
                    <Divider />
-                <Row gutter={16} type="flex" justify="center">
-                  <Col span={5}>
-   						 <Card
-                           style={{ width: 250  }}
-   						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
-   						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
-   						 >
-   						   <Meta
-   						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-   						     title="Card title"
-   						     description="This is the description"
-   						   />
-   						 </Card>
-                  </Col>
-                  <Col span={5}>
- 						 <Card
-                           style={{ width: 250  }}
- 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
- 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
- 						 >
- 						   <Meta
- 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
- 						     title="Card title"
- 						     description="This is the description"
- 						   />
- 						 </Card>
-                  </Col>
-                  <Col span={5}>
- 						 <Card
-                           style={{ width: 250  }}
- 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
- 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
- 						 >
- 						   <Meta
- 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
- 						     title="Card title"
- 						     description="This is the description"
- 						   />
- 						 </Card>
-                  </Col>
-                  <Col span={5}>
- 						 <Card
-                           style={{ width: 250  }}
- 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
- 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
- 						 >
- 						   <Meta
- 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
- 						     title="Card title"
- 						     description="This is the description"
- 						   />
- 						 </Card>
-                  </Col>
-                </Row>
-                   <Divider />
-                <Row gutter={16} type="flex" justify="center">
-                  <Col span={5}>
-   						 <Card
-                           style={{ width: 250  }}
-   						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
-   						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
-   						 >
-   						   <Meta
-   						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-   						     title="Card title"
-   						     description="This is the description"
-   						   />
-   						 </Card>
-                  </Col>
-                  <Col span={5}>
- 						 <Card
-                           style={{ width: 250  }}
- 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
- 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
- 						 >
- 						   <Meta
- 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
- 						     title="Card title"
- 						     description="This is the description"
- 						   />
- 						 </Card>
-                  </Col>
-                  <Col span={5}>
- 						 <Card
-                           style={{ width: 250  }}
- 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
- 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
- 						 >
- 						   <Meta
- 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
- 						     title="Card title"
- 						     description="This is the description"
- 						   />
- 						 </Card>
-                  </Col>
-                  <Col span={5}>
- 						 <Card
-                           style={{ width: 250  }}
- 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
- 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
- 						 >
- 						   <Meta
- 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
- 						     title="Card title"
- 						     description="This is the description"
- 						   />
- 						 </Card>
-                  </Col>
-                </Row>
-                   <Divider />
-                <Row gutter={16} type="flex" justify="center">
-                  <Col span={5}>
-   						 <Card
-                           style={{ width: 250  }}
-   						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
-   						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
-   						 >
-   						   <Meta
-   						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-   						     title="Card title"
-   						     description="This is the description"
-   						   />
-   						 </Card>
-                  </Col>
-                  <Col span={5}>
- 						 <Card
-                           style={{ width: 250  }}
- 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
- 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
- 						 >
- 						   <Meta
- 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
- 						     title="Card title"
- 						     description="This is the description"
- 						   />
- 						 </Card>
-                  </Col>
-                  <Col span={5}>
- 						 <Card
-                           style={{ width: 250  }}
- 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
- 						   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
- 						 >
- 						   <Meta
- 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
- 						     title="Card title"
- 						     description="This is the description"
- 						   />
- 						 </Card>
-                  </Col>
-                  <Col span={5}>
- 						 <Card
-                           style={{ width: 250  }}
- 						   cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
- 						   actions={[<Icon type="setting" onClick={this.videoclick} />, <Icon type="edit" />, <Icon type="ellipsis" />]}
- 						 >
- 						   <Meta
- 						     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
- 						     title="Card title"
- 						     description="This is the description"
- 						   />
- 						 </Card>
-                  </Col>
-                </Row>
+                    {video_card_list}
               </div>
 		)
 	}
