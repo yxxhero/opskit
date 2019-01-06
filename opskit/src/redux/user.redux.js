@@ -1,94 +1,81 @@
-import axios from 'axios'
+import { getAjax, postAjax} from '../util/axios'
+import { message } from 'antd' 
 
-const AUTH_SUCCESS = 'AUTH_SUCCESS'
 const LOGOUT = 'LOGOUT'
-const ERROR_MSG = 'ERROR_MSG';
-const LOAD_DATA = 'LOAD_DATA'
+const LOGIN = 'LOGIN'
+const REGISTER = 'REGISTER'
+
 const initState={
 	msg:'',
-	user:'',
-	type:''
+	username:'',
+	type:'',
+    jwttoken:''
 }
+
 // reducer
 export function user(state=initState, action){
 	switch(action.type){
-		case AUTH_SUCCESS:
+		case LOGIN:
 			return {...state, msg:'', ...action.payload}
-		case LOAD_DATA:
-			return {...state, ...action.payload}
-		case ERROR_MSG:
-			return {...state, isAuth:false, msg:action.msg}
 		case LOGOUT:
-			return {...initState,redirectTo:'/login'}
+			return {...initState}
+		case REGISTER:
+			return {...state}
 		default:
 			return state
 	}
 } 
 
-function authSuccess(obj){
-	const {pwd,...data} = obj
-	return {type: AUTH_SUCCESS, payload:data}
-}
-
-function errorMsg(msg){
-	return { msg, type:ERROR_MSG }
-}
-
-export function loadData(userinfo){
-	return { type:LOAD_DATA, payload:userinfo}
-}
 export function logoutSubmit(){
 	return { type:LOGOUT }
 }
 
-export function login({user,pwd}){
-	if (!user||!pwd) {
-		return errorMsg('用户密码必须输入')
-	}
+export function registerSubmit(){
+	return { type: REGISTER }
+}
+
+export function loginSubmit(payload){
+	return { type: LOGIN, payload }
+}
+
+export function login(username,password){
+    console.log(username, password);
 	return dispatch=>{
-		axios.post('/auth/login',{user,pwd})
-			.then(res=>{
-				if (res.status===200&&res.data.code===0) {
-					dispatch(authSuccess(res.data.data))
-				}else{
-					dispatch(errorMsg(res.data.msg))
-				}
-			})		
+      postAjax('/auth/login',{username,password},
+        function(response){
+            console.log(response);
+            sessionStorage.setItem("username", response.data.username);
+            sessionStorage.setItem("jwttoken", response.data.token);
+            message.success("登录成功, 跳转中...", 1).then(() => window.location.href = '/');
+            dispatch(loginSubmit({"username": response.data.username, "jwttoken": response.data.token}))
+        }
+      )
 	}
-
-
 }
 
 export function logout(){
 	return dispatch=>{
-		axios.get('/auth/logout')
-			.then(res=>{
-				if (res.status===200&&res.data.code===0) {
-					dispatch(logoutSubmit())
-				}else{
-					dispatch(errorMsg(res.data.msg))
-				}
-			})		
+      getAjax('/auth/logout',{},
+        function(response){
+             console.log(response);
+             sessionStorage.clear();
+             message.success("退出成功", 3).then(() => window.location.href = '/');
+             dispatch(logoutSubmit());
+        }
+      )
 	}
 }
 
-export function regisger({user,pwd,repeatpwd,type}){
-	if (!user||!pwd||!type) {
-		return errorMsg('用户名密码必须输入')
-	}
-	if (pwd!==repeatpwd) {
-		return errorMsg('密码和确认密码不同')
-	}
+export function register(username,password,email){
+    console.log(username,password,email);
 	return dispatch=>{
-		axios.post('/auth/register',{user,pwd,type})
-			.then(res=>{
-				if (res.status==200&&res.data.code===0) {
-					dispatch(authSuccess({user,pwd,type}))
-				}else{
-					dispatch(errorMsg(res.data.msg))
-				}
-			})		
+      postAjax('/auth/register',{username,password, email},
+        function(response){
+             console.log(response);
+             message.success("注册成功", 1).then(() => window.location.href = '/login');
+             dispatch(registerSubmit());
+        }
+      )
 	}
-
 }
 

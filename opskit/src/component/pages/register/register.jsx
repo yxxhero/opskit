@@ -1,17 +1,27 @@
 import React from 'react';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, message } from 'antd';
+import { connect  } from 'react-redux';
+import { register } from '../../../redux/user.redux' 
 import './register.less'
 import logo from '../../../style/img/logo.png'
 
 const FormItem = Form.Item;
 
 @Form.create()
+@connect(
+  state => state.user,
+  {register}
+)
 class RegisterPage extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+              if (values.password !== values.confirmpassword){
+                 message.error("两次输入密码不一致!!!");
+              }else{
+                 this.props.register(values.userName, values.password, values.email);
+              }
             }
         });
     };

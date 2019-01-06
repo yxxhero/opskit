@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect  } from 'react-redux';
+import { login } from '../../../redux/user.redux'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import './login.less'
 import logo from '../../../style/img/logo.png'
@@ -6,17 +8,21 @@ import logo from '../../../style/img/logo.png'
 const FormItem = Form.Item;
 
 @Form.create()
+@connect(
+  state => state.user,
+  {login}
+)
 class LoginPage extends React.Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+               this.props.login(values.userName, values.password);
             }
         });
     };
     render() {
-        const { getFieldDecorator } = this.props.form;
+      const { getFieldDecorator } = this.props.form;
         return (
             <div className="login">
                 <div className="login-form" >
@@ -53,9 +59,8 @@ class LoginPage extends React.Component {
                     </Form>
                 </div>
             </div>
-
         );
-    }
+}
 }
 
 export default LoginPage

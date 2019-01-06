@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { notification } from 'antd';
+import { notification, message } from 'antd';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
 
@@ -25,8 +25,15 @@ instance.interceptors.response.use(function(config){
 	return config
 })
 
+function check_response_data(data){
+  if (data.code === 0){
+    return true;
+  }
+  return false;
+}
+
 export function getAjax(url, params={}, Callback, headers={}) {
-    let token = sessionStorage.token;
+    let token = sessionStorage.jwttoken;
     if(token){
         instance.defaults.headers.common['Authorization'] = token;
     }
@@ -46,14 +53,17 @@ export function getAjax(url, params={}, Callback, headers={}) {
 }
 
 export function postAjax(url,params,Callback, headers={}) {
-    let token = sessionStorage.token;
+    let token = sessionStorage.jwttoken;
     if(token){
         instance.defaults.headers.common['Authorization'] = token;
     }
     instance.post(url, params, {headers})
         .then(function (response) {
-
+          if (check_response_data(response.data)){
             Callback(response);
+          }else{
+            message.error(response.data.message);
+          }
         })
         .catch(function (error) {
             console.log(error);
@@ -66,7 +76,7 @@ export function postAjax(url,params,Callback, headers={}) {
 }
 
 export function putAjax(url,params,Callback, headers={}) {
-    let token = sessionStorage.token;
+    let token = sessionStorage.jwttoken;
     if(token){
         instance.defaults.headers.common['Authorization'] = token;
     }
@@ -86,7 +96,7 @@ export function putAjax(url,params,Callback, headers={}) {
 }
 
 export function requestAjax(config,Callback) {
-    let token = sessionStorage.token;
+    let token = sessionStorage.jwttoken;
     if(token){
         instance.defaults.headers.common['Authorization'] = token;
     }
@@ -107,7 +117,7 @@ export function requestAjax(config,Callback) {
 }
 
 export function deleteAjax(url, params, Callback, headers={}) {
-    let token = sessionStorage.token;
+    let token = sessionStorage.jwttoken;
     if(token){
         instance.defaults.headers.common['Authorization'] = token;
     }
