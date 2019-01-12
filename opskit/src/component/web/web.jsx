@@ -1,5 +1,6 @@
 import React from 'react';
-import { Card, Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
+import { Button, Card, Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
+import { withRouter } from 'react-router-dom'
 
 const { Meta } = Card;
 const listData = [];
@@ -35,16 +36,27 @@ const data = [
   },
 ];
 
+@withRouter
 class WebIndex extends React.Component {
 
+    handleEssayClick = () => {
+      this.props.history.push("/essay");
+    }
 
     render(){
         return(
          <div>
+        <Row>
+          <Col span={12}>
          <Breadcrumb style={{ margin: '16px 0' }}> 
            <Breadcrumb.Item>首页</Breadcrumb.Item>
            <Breadcrumb.Item>Web</Breadcrumb.Item>
          </Breadcrumb>
+       </Col>
+       <Col span={2} offset={10}>
+         <Button onClick={this.handleEssayClick} type="primary" icon="edit"  style={{margin: "10px 0px", float: 'right'}}>发表帖子</Button>
+       </Col>
+       </Row>
            <Row gutter={32}>
 				<Col span={19}>
         	<List

@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 import { withRouter } from 'react-router-dom'
 import { replaceAll } from '../../util/util'
 
-const menuItemList = ["video", "index","web","database","docker","security"]; 
+const menuItemList = ["video", "index","web","database","docker","security", "essay"]; 
 
 @withRouter
 class MenuList extends Component {
@@ -15,7 +15,7 @@ class MenuList extends Component {
 	   console.log(this.props)	 
   }
   componentWillMount () {
-      this.setState({itemkey:replaceAll(this.props.location.pathname, "/", "")}) 
+      this.setState({itemkey:replaceAll(this.props.location.pathname, "/", "")}); 
   }   
   render() {
     return (
