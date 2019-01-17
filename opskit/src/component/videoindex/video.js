@@ -53,8 +53,8 @@ class VideoIndex extends Component {
         console.log("check");
     }
     
-    videoclick = (e) => {
-        console.log(e);
+    handleVideoClick = (video_id) => {
+          this.props.history.push(["/videoplay/", video_id].join(""));
     }
 
     render(){
@@ -72,8 +72,8 @@ class VideoIndex extends Component {
                 <Col span={5} key={card_list[item * 4]["video_id"]}>
  	                  	 <Card
                            style={{ width: 250  }}
- 	                  	   cover={<img alt={card_list[item * 4]["title"]} src={card_list[item * 4]["img_src"]} />}
- 	                  	   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+                           cover={<img alt={card_list[item * 4]["title"]} src={card_list[item * 4]["img_src"]} style={{cursor:"pointer"}} onClick={() => {this.handleVideoClick("")}}/>}
+ 	                  	   actions={[<Icon type="like" />, <Icon type="message" />]}
  	                  	 >
  	                  	   <Meta
  	                  	     avatar={<Avatar src={card_list[item * 4]["avatar_src"]} />}
@@ -85,8 +85,8 @@ class VideoIndex extends Component {
                 <Col span={5} key={card_list[item * 4 + 1]["video_id"]}>
  	                  	 <Card
                              style={{ width: 250  }}
- 	                  	   cover={<img alt={card_list[item * 4 + 1]["title"]} src={card_list[item * 4 + 1]["img_src"]} />}
- 	                  	   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 	                  	   cover={<img alt={card_list[item * 4 + 1]["title"]} src={card_list[item * 4 + 1]["img_src"]} style={{cursor:"pointer"}} onClick={() => {this.handleVideoClick("")}}/>}
+ 	                  	   actions={[<Icon type="like" />, <Icon type="message" />]}
  	                  	 >
  	                  	   <Meta
  	                  	     avatar={<Avatar src={card_list[item * 4 + 1]["avatar_src"]} />}
@@ -98,8 +98,8 @@ class VideoIndex extends Component {
                 <Col span={5} key={card_list[item * 4 + 2]["video_id"]}>
  	                  	 <Card
                              style={{ width: 250  }}
- 	                  	   cover={<img alt={card_list[item * 4 + 2]["title"]} src={card_list[item * 4 + 2 ]["img_src"]} />}
- 	                  	   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 	                  	   cover={<img alt={card_list[item * 4 + 2]["title"]} src={card_list[item * 4 + 2 ]["img_src"]} style={{cursor:"pointer"}} onClick={() => {this.handleVideoClick("")}}/>}
+ 	                  	   actions={[<Icon type="like" />, <Icon type="message" />]}
  	                  	 >
  	                  	   <Meta
  	                  	     avatar={<Avatar src={card_list[item * 4 + 2]["avatar_src"]} />}
@@ -111,8 +111,8 @@ class VideoIndex extends Component {
                 <Col span={5} key={card_list[item * 4 + 3]["video_id"]}>
  	                  	 <Card
                              style={{ width: 250  }}
- 	                  	   cover={<img alt={card_list[item * 4 + 3]["title"]} src={card_list[item * 4 + 3]["img_src"]} />}
- 	                  	   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 	                  	   cover={<img alt={card_list[item * 4 + 3]["title"]} src={card_list[item * 4 + 3]["img_src"]} style={{cursor:"pointer"}} onClick={() => {this.handleVideoClick("")}}/>}
+ 	                  	   actions={[<Icon type="like" />, <Icon type="message" />]}
  	                  	 >
  	                  	   <Meta
  	                  	     avatar={<Avatar src={card_list[item * 4 + 3]["avatar_src"]} />}
@@ -135,8 +135,8 @@ if(card_list_mod){
                 <Col span={5} key={card_list[item]["video_id"]}>
  	                  	 <Card
                              style={{ width: 250  }}
- 	                  	   cover={<img alt={card_list[item]["title"]} src={card_list[item]["img_src"]} />}
- 	                  	   actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
+ 	                  	   cover={<img alt={card_list[item]["title"]} src={card_list[item]["img_src"]} style={{cursor:"pointer"}} onClick={() => {this.handleVideoClick("")}}/>}
+ 	                  	   actions={[<Icon type="like" />, <Icon type="message" />]}
  	                  	 >
  	                  	   <Meta
  	                  	     avatar={<Avatar src={card_list[item]["avatar_src"]} />}

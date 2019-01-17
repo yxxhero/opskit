@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 import { withRouter } from 'react-router-dom'
 import { replaceAll } from '../../util/util'
 
-const menuItemList = ["video", "index","web","database","docker","security", "essay"]; 
+const menuItemList = ["video", "index","web","database","docker","security", "essay", "videoplay"]; 
 
 @withRouter
 class MenuList extends Component {
