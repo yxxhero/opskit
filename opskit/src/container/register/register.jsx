@@ -1,9 +1,9 @@
 import React from 'react';
 import { Form, Icon, Input, Button, message } from 'antd';
 import { connect  } from 'react-redux';
-import { register } from '../../../redux/user.redux' 
+import { register } from '../../redux/user.redux' 
 import './register.less'
-import logo from '../../../style/img/logo.png'
+import logo from '../../style/img/logo.png'
 
 const FormItem = Form.Item;
 

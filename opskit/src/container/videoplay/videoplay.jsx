@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CustomLayout from '../../customlayout/layout' 
-import { VideoPlay } from '../../videoplay/videoplay' 
+import CustomLayout from '../../component/customlayout/layout' 
+import { VideoPlay } from '../../component/videoplay/videoplay' 
 
 class VideoPlayPage extends Component {
 

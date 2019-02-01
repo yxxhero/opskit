@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import CustomLayout from '../../customlayout/layout' 
-import WebIndex from '../../web/web' 
+import CustomLayout from '../../component/customlayout/layout' 
+import ArticleIndex from '../../component/article/article' 
 
 class WebPage extends Component {
 
     render(){
-        const customcontent = <WebIndex/>
+        const customcontent = <ArticleIndex resourceType='web' />
 	    return (
 				<CustomLayout CustomContent={customcontent}>
 				</CustomLayout>

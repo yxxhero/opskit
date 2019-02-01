@@ -3,7 +3,7 @@ import { Menu } from 'antd';
 import { withRouter } from 'react-router-dom'
 import { replaceAll } from '../../util/util'
 
-const menuItemList = ["video", "index","web","database","docker","security", "essay", "videoplay"]; 
+const menuItemList = ["video", "index","web","database","docker","security", "essayadd", "videoplay"]; 
 
 @withRouter
 class MenuList extends Component {
@@ -11,7 +11,7 @@ class MenuList extends Component {
       itemkey: ""
   }
   handleMenuClick = (item) => {
-       this.props.history.push(["/", item.key].join(""));
+    this.props.history.push(["/", item.key, "/"].join(""));
 	   console.log(this.props)	 
   }
   componentWillMount () {

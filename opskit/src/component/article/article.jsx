@@ -1,18 +1,11 @@
 import React from 'react';
+import { connect  } from 'react-redux';
 import { Button, Card, Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
 import { withRouter } from 'react-router-dom'
+import { getnotelist } from '../../redux/note.redux'
+
 
 const { Meta } = Card;
-const listData = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: 'http://ant.design',
-    title: `ant design part ${i}`,
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-    description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  });
-}
 
 const IconText = ({ type, text }) => (
   <span>
@@ -37,28 +30,40 @@ const data = [
 ];
 
 @withRouter
-class WebIndex extends React.Component {
+@connect(
+  state => state.note,
+  {getnotelist}
+)
+class ArticleIndex extends React.Component {
+    state = {
+      pagesize: 10
+    };
 
     handleEssayClick = () => {
-      this.props.history.push("/essay");
+      this.props.history.push("/essay/add/");
+    }
+
+    componentDidMount () {
+      this.props.getnotelist({note_type: this.props.resourceType})
     }
 
     render(){
+        const { notelist } = this.props;
         return(
          <div>
         <Row>
-          <Col span={12}>
+          <Col span={11} offset={1}>
          <Breadcrumb style={{ margin: '16px 0' }}> 
            <Breadcrumb.Item>首页</Breadcrumb.Item>
            <Breadcrumb.Item>Web</Breadcrumb.Item>
          </Breadcrumb>
        </Col>
-       <Col span={2} offset={10}>
+       <Col span={2} offset={9}>
          <Button onClick={this.handleEssayClick} type="primary" icon="edit"  style={{margin: "10px 0px", float: 'right'}}>发表帖子</Button>
        </Col>
        </Row>
            <Row gutter={32}>
-				<Col span={19}>
+				<Col span={18} offset={1}>
         	<List
             itemLayout="vertical"
             bordered={true}
@@ -66,27 +71,30 @@ class WebIndex extends React.Component {
               onChange: (page) => {
                 console.log(page);
               },
-              pageSize: 5,
+              pageSize: this.state.pagesize,
+              total: notelist.length, 
+              onShowSizeChange: (current, size) => {this.setState({ pagesize: size })},
+              showSizeChanger: true,
+              showQuickJumper: true,
+              showTotal: total => `总共 ${total} 条经验`
             }}
-            dataSource={listData}
+            dataSource={notelist}
             renderItem={item => (
               <List.Item
                 style={{background: "white"}}
                 key={item.title}
                 actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
-                extra={<img width={250} alt="logo" src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png" />}
               >
                 <List.Item.Meta
-                  avatar={<Avatar src={item.avatar} />}
+                  avatar={<Avatar style={{ verticalAlign: 'middle'  }} src={item.avatar} />}
                   title={<a href={item.href}>{item.title}</a>}
                   description={item.description}
                 />
-                {item.content}
               </List.Item>
             )}
           />
             </Col>
-            <Col span={5}>
+            <Col span={4}>
 				<Row>
                  <Col span={24}>
                 <Card
@@ -130,4 +138,4 @@ class WebIndex extends React.Component {
 		)
     }
 }
-export default WebIndex
+export default ArticleIndex

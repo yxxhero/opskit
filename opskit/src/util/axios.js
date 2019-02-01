@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { notification, message } from 'antd';
+import { message } from 'antd';
 import NProgress from 'nprogress';
 import 'nprogress/nprogress.css'
+import { Appconfig } from '../config';
 
-const baseUrl = 'http://192.168.19.130:5000';
+const baseUrl = Appconfig.serverBaseUrl;
 var instance = axios.create({
     baseURL: baseUrl,//测试环境
     timeout: 10000,
@@ -23,6 +24,28 @@ instance.interceptors.request.use(function(config){
 instance.interceptors.response.use(function(config){
     NProgress.done();
 	return config
+}, (err) => {
+    if (err && err.response) {
+        switch (err.response.status) {
+            case 400: err.message = '请求错误(400)' ; break;
+            case 401: err.message = '未授权，请重新登录(401)'; break;
+            case 403: err.message = '拒绝访问(403)'; break;
+            case 404: err.message = '请求出错(404)'; break;
+            case 408: err.message = '请求超时(408)'; break;
+            case 500: err.message = '服务器错误(500)'; break;
+            case 501: err.message = '服务未实现(501)'; break;
+            case 502: err.message = '网络错误(502)'; break;
+            case 503: err.message = '服务不可用(503)'; break;
+            case 504: err.message = '网络超时(504)'; break;
+            case 505: err.message = 'HTTP版本不受支持(505)'; break;
+            default: err.message = `连接出错(${err.response.status})!`;
+        }
+    }else{
+        err.message = '连接服务器失败!'
+    }
+    NProgress.done();
+    message.error(err.message);
+    return Promise.reject(err);
 })
 
 function check_response_data(data){
@@ -40,58 +63,33 @@ export function getAjax(url, params={}, Callback, headers={}) {
     instance.get(url,{params, headers})
         .then(function (response) {
             Callback(response);
-        })
-        .catch(function (error,resoponse) {
-            /* return Promise.reject(error);*/
-            console.log(error);
-            notification.error({
-                message: '提示',
-                description: `服务器错误！`,
-                duration: 2,
-            });
         });
 }
 
-export function postAjax(url,params,Callback, headers={}) {
+export function postAjax(url, data, Callback, headers={}) {
     let token = sessionStorage.jwttoken;
     if(token){
         instance.defaults.headers.common['Authorization'] = token;
     }
-    instance.post(url, params, {headers})
+    instance.post(url, data, {headers})
         .then(function (response) {
           if (check_response_data(response.data)){
             Callback(response);
           }else{
             message.error(response.data.message);
           }
-        })
-        .catch(function (error) {
-            console.log(error);
-            notification.error({
-                message: '提示',
-                description: `登录超时，请重新登录`,
-                duration: 2,
-            });
         });
 }
 
-export function putAjax(url,params,Callback, headers={}) {
+export function putAjax(url, data, Callback, headers={}) {
     let token = sessionStorage.jwttoken;
     if(token){
         instance.defaults.headers.common['Authorization'] = token;
     }
-    instance.put(url,params,{headers})
+    instance.put(url, data, {headers})
         .then(function (response) {
 
             Callback(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-            notification.error({
-                message: '提示',
-                description: `登录超时，请重新登录`,
-                duration: 2,
-            });
         });
 }
 
@@ -105,14 +103,6 @@ export function requestAjax(config,Callback) {
         .then(function (response) {
 
             Callback(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-            notification.error({
-                message: '提示',
-                description: `登录超时，请重新登录`,
-                duration: 2,
-            });
         });
 }
 
@@ -125,14 +115,6 @@ export function deleteAjax(url, params, Callback, headers={}) {
         .then(function (response) {
 
             Callback(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-            notification.error({
-                message: '提示',
-                description: `登录超时，请重新登录`,
-                duration: 2,
-            });
         });
 }
 

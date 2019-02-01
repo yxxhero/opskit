@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CustomLayout from '../../customlayout/layout' 
-import { VideoIndex } from '../../videoindex/video' 
+import CustomLayout from '../../component/customlayout/layout' 
+import { VideoIndex } from '../../component/videoindex/video' 
 
 class VideoPage extends Component {
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import CustomLayout from '../../customlayout/layout' 
-import { SearchIndex } from '../../search/search' 
+import CustomLayout from '../../component/customlayout/layout' 
+import { SearchIndex } from '../../component/search/search' 
 
 class SearchPage extends Component {
 

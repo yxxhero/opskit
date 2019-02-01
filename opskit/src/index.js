@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
-import { Provider } from 'react-redux'
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import { LocaleProvider } from 'antd';
+import zhCN from 'antd/lib/locale-provider/zh_CN';
 
 import './index.css';
 import App from './App';
@@ -15,9 +17,12 @@ const store = createStore(reducers, compose(
 ))
 
 ReactDOM.render(
-(<Provider store={store}>
-<App />
-</Provider>
+  (
+   <LocaleProvider locale={zhCN}>
+       <Provider store={store}>
+          <App />
+       </Provider>
+   </LocaleProvider>
 ),
  document.getElementById('root'));
 registerServiceWorker();
