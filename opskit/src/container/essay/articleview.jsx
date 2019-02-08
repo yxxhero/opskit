@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import CustomLayout from '../../component/customlayout/layout' 
-import ArticleIndex from '../../component/essay/article' 
+import { ArticleView } from '../../component/essay/articleview' 
 
-class WebPage extends Component {
+class ArticleViewPage extends Component {
 
     render(){
-        const customcontent = <ArticleIndex resourceType='web' />
+        const customcontent = <ArticleView/>
 	    return (
 				<CustomLayout CustomContent={customcontent}>
 				</CustomLayout>
@@ -15,4 +15,4 @@ class WebPage extends Component {
 }
 
 
-export { WebPage }
+export { ArticleViewPage }

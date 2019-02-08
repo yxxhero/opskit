@@ -3,7 +3,8 @@ import { CustomUploadFn } from '../../util/tools_helper';
 import 'braft-editor/dist/index.css';
 import { withRouter  } from 'react-router-dom'
 import BraftEditor from 'braft-editor'
-import { Select, Form, Input, Button, Row, Col  } from 'antd'
+import { Select, Form, Input, Button, Row, Col, message } from 'antd';
+import { postAjax } from '../../util/axios';
 import './essaycreate.css'
 
 const FormItem = Form.Item;
@@ -34,9 +35,16 @@ class EssayCreateForm extends Component {
         const submitData = {
           title: values.title,
           raw_content: values.content.toRAW(), 
-          content: values.content.toHTML()
+          content: values.content.toHTML(),
+          note_type: values.note_type
         }
         console.log(submitData)
+        postAjax('/resource/note', submitData,
+          function(response){
+              console.log(response);
+              message.success(response.data.msg);
+          }
+        )
       }
     })
 
@@ -94,10 +102,10 @@ class EssayCreateForm extends Component {
                                     optionFilterProp="children"
                                     filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                                   >
-                                    <Option value="web">Web服务</Option>
-                                    <Option value="data	">数据库</Option>
-                                    <Option value="docker">容器</Option>
-                                    <Option value="security">安全</Option>
+                                    <Option value={1}>数据库</Option>
+                                    <Option value={2}>Web服务</Option>
+                                    <Option value={3}>容器</Option>
+                                    <Option value={4}>安全</Option>
                                   </Select>
                                 )}
                               </FormItem>

@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import {message, Avatar, Spin, Row, Col, Card, Comment, Tooltip, List} from 'antd';
-import { Player, BigPlayButton, LoadingSpinner, PlaybackRateMenuButton, ControlBar } from 'video-react';
+import {Empty, message, Avatar, Spin, Row, Col, Card, Comment, Tooltip, List} from 'antd';
 import { withRouter  } from 'react-router-dom'
+import { connect  } from 'react-redux';
 import "video-react/dist/video-react.css";
 import moment from 'moment';
 import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
-import './videoplay.css'
+import { getQueryString } from '../../util/searchparse_helper';
+import './articleview.css'
+import { getnoteinfo } from '../../redux/note.redux'
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
 
@@ -40,7 +42,11 @@ const data = [
 ];
 
 @withRouter
-class VideoPlay extends Component {
+@connect(
+  state => state.note,
+  {getnoteinfo}
+)
+class ArticleView extends Component {
     state = {
           data: [],
           loading: false,
@@ -49,7 +55,11 @@ class VideoPlay extends Component {
     }
 
     componentDidMount () {
-        this.player.playbackRate = 1;
+      if(getQueryString(this.props.location.search).note_id){
+        this.props.getnoteinfo({id: getQueryString(this.props.location.search).note_id});
+      }else{
+        message.error("缺少文章id");
+      };
         this.forceUpdate();
         this.fetchData((res) => {
           this.setState({
@@ -95,8 +105,7 @@ class VideoPlay extends Component {
               data = data.concat(res.results);
         this.setState({
                   data,
-                          loading: false,
-                
+                  loading: false,
         });
             
       });
@@ -117,16 +126,7 @@ class VideoPlay extends Component {
                          title="测试视频"
                          bodyStyle={{padding: '0px'}}
                        >
-                          <Player 
-                             ref={(c) => { this.player = c; }}
-                          >
-                            <source src="http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4" type="video/mp4" />
-                              <BigPlayButton position="center" />
-                              <LoadingSpinner />
-                              <ControlBar>
-                                <PlaybackRateMenuButton rates={[5, 2, 1, 0.5, 0.1]} />
-                              </ControlBar>
-                          </Player>
+                         { this.props.noteinfo.content ? <div style={{margin: '10px'}}  dangerouslySetInnerHTML = {{__html: this.props.noteinfo.content }} ></div> : <Empty />}
                         </Card>
                      </Col>
                    </Row>
@@ -194,4 +194,4 @@ class VideoPlay extends Component {
 }
 
 
-export { VideoPlay }
+export { ArticleView }

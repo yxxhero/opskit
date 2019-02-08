@@ -1,34 +1,55 @@
 import { getAjax} from '../util/axios';
 
-const GETNOTELIST = 'GETNOTELIST'
+const GETCOMMENTLIST = 'GETCOMMENTLIST'
+const GETNOTEINFO = 'GETNOTEINFO'
+const STARTLOADING = 'STARTLOADING'
+const STOPLOADING = 'STOPLOADING'
 
 const initState={
-	notelist:[],
-	content:'',
-    raw_content:''
+	commentlist:[],
+    loading: false,
+    noteinfo:{}
 }
 
 // reducer
 export function note(state=initState, action){
 	switch(action.type){
-		case GETNOTELIST:
-			return {...state, notelist: action.payload}
+		case GETCOMMENTLIST:
+			return {...state, commentlist: action.payload}
+		case GETNOTEINFO:
+			return {...state, noteinfo: action.payload}
+		case STARTLOADING:
+			return {...state, loading: true}
+		case STOPLOADING:
+			return {...state, loading: false}
 		default:
 			return state
 	}
 } 
 
-export function getNoteList(payload){
-	return { type: GETNOTELIST, payload }
+export function getCommentList(payload){
+	return { type: GETCOMMENTLIST, payload }
 }
 
-export function getnotelist(noteargs){
-    console.log(noteargs);
+export function getNoteInfo(payload){
+	return { type: GETNOTEINFO, payload }
+}
+export function startLoading(){
+	return { type: STARTLOADING }
+}
+
+export function stopLoading(){
+	return { type: STOPLOADING }
+}
+
+export function getnoteinfo(id){
 	return dispatch=>{
-      getAjax('/resource/note', noteargs,
+      dispatch(startLoading());
+      getAjax('/resource/note', id,
         function(response){
             console.log(response);
-            dispatch(getNoteList(response.data.data));
+            dispatch(stopLoading());
+            dispatch(getNoteInfo(response.data.data));
         }
       )
 	}

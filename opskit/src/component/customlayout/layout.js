@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './layout.css';
 import logo from '../../style/img/logo.png'
-import { Layout, BackTop } from 'antd';
+import { Layout, BackTop, Row, Col } from 'antd';
 import { TopTips } from '../../component/toptips/toptips'
 import SideBar from '../../component/sidebar/sidebar'
 import MenuList from '../../component/menu/menu'
@@ -15,11 +15,19 @@ class CustomLayout extends Component {
      <Layout>
        <TopTips  />
        <Header>
-         <div className="logo">
-			<img src={logo} alt="" style={{width: 210}}/>
-         </div>
-			<MenuList />
-			<SideBar />
+         <Row>
+           <Col span={4}>
+           <div className="logo">
+		  	<img src={logo} alt="" style={{width: 210}}/>
+           </div>
+           </Col>
+           <Col span={14}>
+		  	  <MenuList />
+            </Col>
+           <Col span={6}>
+		  	  <SideBar />
+            </Col>
+         </Row>
        </Header>
        <Content style={{ padding: '0 50px' }}>
 			    <div style={{ minHeight: window.innerHeight - 68.8 * 3 +27.8 }}>
@@ -28,7 +36,7 @@ class CustomLayout extends Component {
 			    </div>
        </Content>
        <Footer style={{ textAlign: 'center' }}>
-         Ant Design ©2018 Created by Ant UED
+         Aiopsclub ©2019 Created by Ant Design 
        </Footer>
      </Layout>
     );

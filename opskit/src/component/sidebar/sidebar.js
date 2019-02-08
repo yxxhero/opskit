@@ -27,6 +27,9 @@ class SideBar extends Component {
           <a target="_blank" rel="noopener noreferrer" onClick={() => console.log(this)}>个人信息</a>
         </Menu.Item>
         <Menu.Item>
+          <a target="_blank" rel="noopener noreferrer" onClick={() => console.log(this)}>我的文章</a>
+        </Menu.Item>
+        <Menu.Item>
           <a target="_blank" rel="noopener noreferrer" onClick={() => this.props.logout()}>退出登录</a>
         </Menu.Item>
       </Menu>

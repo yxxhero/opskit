@@ -55,11 +55,11 @@ export function login(username,password){
 
 export function logout(){
 	return dispatch=>{
-      getAjax('/auth/logout',{},
+      getAjax('/auth/logout',{ username: sessionStorage.getItem("username") },
         function(response){
              console.log(response);
              sessionStorage.clear();
-             message.success("退出成功", 3).then(() => window.location.href = '/');
+             message.success("退出成功", 1).then(() => window.location.href = '/');
              dispatch(logoutSubmit());
         }
       )

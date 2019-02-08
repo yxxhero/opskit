@@ -62,7 +62,11 @@ export function getAjax(url, params={}, Callback, headers={}) {
     }
     instance.get(url,{params, headers})
         .then(function (response) {
+          if (check_response_data(response.data)){
             Callback(response);
+          }else{
+            message.error(response.data.msg);
+          }
         });
 }
 
@@ -76,7 +80,7 @@ export function postAjax(url, data, Callback, headers={}) {
           if (check_response_data(response.data)){
             Callback(response);
           }else{
-            message.error(response.data.message);
+            message.error(response.data.msg);
           }
         });
 }
@@ -88,8 +92,11 @@ export function putAjax(url, data, Callback, headers={}) {
     }
     instance.put(url, data, {headers})
         .then(function (response) {
-
+          if (check_response_data(response.data)){
             Callback(response);
+          }else{
+            message.error(response.data.msg);
+          }
         });
 }
 
@@ -101,8 +108,11 @@ export function requestAjax(config,Callback) {
     console.log(config);
     instance.request(config)
         .then(function (response) {
-
+          if (check_response_data(response.data)){
             Callback(response);
+          }else{
+            message.error(response.data.msg);
+          }
         });
 }
 
@@ -113,8 +123,11 @@ export function deleteAjax(url, params, Callback, headers={}) {
     }
     instance.delete(url, {data:params, headers})
         .then(function (response) {
-
+          if (check_response_data(response.data)){
             Callback(response);
+          }else{
+            message.error(response.data.msg);
+          }
         });
 }
 

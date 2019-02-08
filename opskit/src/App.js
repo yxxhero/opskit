@@ -5,6 +5,7 @@ import LoginPage from './container/login/login'
 import RegisterPage from './container/register/register'
 import { WebPage } from './container/web/web'
 import { EssayCreatePage } from './container/essay/essaycreate'
+import { ArticleViewPage } from './container/essay/articleview'
 import { VideoPage } from './container/video/video'
 import { VideoPlayPage } from './container/videoplay/videoplay'
 import { isLogin } from './util/util'
@@ -23,6 +24,7 @@ class App extends Component {
              <Route path="/docker/" exact component={WebPage}></Route>
              <Route path="/security/" exact component={WebPage}></Route>
              <Route path="/essay/add" exact component={EssayCreatePage}></Route>
+             <Route path="/essay/view/" exact component={ArticleViewPage}></Route>
              <Route path="/index/" exact component={SearchPage}></Route>
              <Route component={SearchPage}></Route>
            </Switch>

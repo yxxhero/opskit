@@ -2,7 +2,7 @@ import React from 'react';
 import { connect  } from 'react-redux';
 import { Button, Card, Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
 import { withRouter } from 'react-router-dom'
-import { getnotelist } from '../../redux/note.redux'
+import { getnotelist } from '../../redux/notes.redux'
 
 
 const { Meta } = Card;
@@ -31,7 +31,7 @@ const data = [
 
 @withRouter
 @connect(
-  state => state.note,
+  state => state.notes,
   {getnotelist}
 )
 class ArticleIndex extends React.Component {
@@ -48,7 +48,7 @@ class ArticleIndex extends React.Component {
     }
 
     render(){
-        const { notelist } = this.props;
+        const { notelist, loading } = this.props;
         return(
          <div>
         <Row>
@@ -63,10 +63,11 @@ class ArticleIndex extends React.Component {
        </Col>
        </Row>
            <Row gutter={32}>
-				<Col span={18} offset={1}>
+				<Col span={16} offset={1}>
         	<List
             itemLayout="vertical"
             bordered={true}
+            loading={loading}
             pagination={{
               onChange: (page) => {
                 console.log(page);
@@ -83,18 +84,17 @@ class ArticleIndex extends React.Component {
               <List.Item
                 style={{background: "white"}}
                 key={item.title}
-                actions={[<IconText type="star-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
+                actions={[<IconText type="eye-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
               >
                 <List.Item.Meta
-                  avatar={<Avatar style={{ verticalAlign: 'middle'  }} src={item.avatar} />}
+                  avatar={<Avatar style={{ verticalAlign: 'middle'  }} src={item.useravatar} />}
                   title={<a href={item.href}>{item.title}</a>}
-                  description={item.description}
                 />
               </List.Item>
             )}
           />
             </Col>
-            <Col span={4}>
+            <Col span={6}>
 				<Row>
                  <Col span={24}>
                 <Card
@@ -125,7 +125,6 @@ class ArticleIndex extends React.Component {
                   <List.Item.Meta
                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                     title={<a href="https://ant.design">{item.title}</a>}
-                    description="Ant Design, a design language for background applications, is refined by Ant UED Team"
                   />
                 </List.Item>
               )}

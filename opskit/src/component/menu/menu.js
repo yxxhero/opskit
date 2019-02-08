@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Menu } from 'antd';
 import { withRouter } from 'react-router-dom'
-import { replaceAll } from '../../util/util'
+import { replaceAll, checkSession } from '../../util/util'
 
-const menuItemList = ["video", "index","web","database","docker","security", "essayadd", "videoplay"]; 
+const SubMenu = Menu.SubMenu;
+const menuItemList = ["video", "index","web","database","docker","security", "essayadd", "videoplay", "essayview"]; 
 
 @withRouter
 class MenuList extends Component {
@@ -23,7 +24,7 @@ class MenuList extends Component {
            theme="dark"
            mode="horizontal"
            defaultSelectedKeys={menuItemList.indexOf(this.state.itemkey) != -1 ? [this.state.itemkey] : ["index"]}
-           style={{ display: "inline-block", lineHeight: '64px' , marginLeft: '40px'}}
+           style={{ lineHeight: '64px'}}
          >
            <Menu.Item key="index" onClick={this.handleMenuClick}>首页</Menu.Item>
            <Menu.Item key="video" onClick={this.handleMenuClick}>视频</Menu.Item>
@@ -31,6 +32,12 @@ class MenuList extends Component {
            <Menu.Item key="database" onClick={this.handleMenuClick}>数据库</Menu.Item>
            <Menu.Item key="docker" onClick={this.handleMenuClick}>容器</Menu.Item>
            <Menu.Item key="security" onClick={this.handleMenuClick}>安全</Menu.Item>
+           { checkSession() ?
+           <SubMenu key="personal" title="个人主页">
+             <Menu.Item key="article">我的文章</Menu.Item>
+             <Menu.Item key="setting">设置</Menu.Item>
+           </SubMenu> : null
+           }
          </Menu>
     );
   }
