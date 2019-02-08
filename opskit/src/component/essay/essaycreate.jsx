@@ -77,10 +77,16 @@ class EssayCreateForm extends Component {
                           <Col span={12}>
                               <FormItem {...formItemLayout} label="文章标题">
                                 {getFieldDecorator('title', {
-                                  rules: [{
+                                rules: [
+                                {
                                     required: true,
                                     message: '请输入标题',
-                                  }],
+                                },
+                                {
+                                    max: 45,
+                                    message: '标题过长',
+                                }
+                                    ],
                                 })(
                                 <Input size="large" placeholder="请输入标题"/>
                                 )}

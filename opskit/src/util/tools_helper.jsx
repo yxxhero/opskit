@@ -61,9 +61,18 @@ export function CustomUploadFn(param){
            }else{
                err.message = '连接服务器失败!'
            }
-           message.error(err.message);
            param.error({
              msg: err.message 
            })
+           message.error(err.message).then(
+             () => {
+             if (err && err.response) {
+                 if (err.response.status === 401) {
+                   window.location.href = '/login';
+                 }
+             }
+            }
+
+    );
       } );
 }

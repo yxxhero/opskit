@@ -1,23 +1,52 @@
 import React from 'react';
 import { connect  } from 'react-redux';
 import { login } from '../../redux/user.redux'
+import { instanceOf  } from 'prop-types';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { withCookies, Cookies } from 'react-cookie';
 import './login.less'
 import logo from '../../style/img/logo.png'
 
 const FormItem = Form.Item;
 
 @Form.create()
+@withCookies
 @connect(
   state => state.user,
   {login}
 )
 class LoginPage extends React.Component {
+    static propTypes = {
+      cookies: instanceOf(Cookies).isRequired
+    }; 
+    constructor(props) {
+      super(props);
+ 
+      this.state = {
+        username: '',
+        password: ''
+      };
+    }
+
+    componentDidMount () {
+        const { cookies } = this.props;
+        if (cookies.get('loginInfo')){
+            this.setState({username: cookies.get('loginInfo').username, password: cookies.get('loginInfo').password });
+        }
+ 
+    } 
+
     handleSubmit = (e) => {
+        const { cookies } = this.props;
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-               this.props.login(values.userName, values.password);
+              if (values.remember){
+                 cookies.set('loginInfo', {username: values.userName, password: values.password});
+              }else{
+                 cookies.remove('loginInfo');
+              }
+              this.props.login(values.userName, values.password);
             }
         });
     };
@@ -31,14 +60,14 @@ class LoginPage extends React.Component {
                     </div>
                     <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px', marginTop:50}}>
                         <FormItem>
-                            {getFieldDecorator('userName', {
+                            {getFieldDecorator('userName', {initialValue: this.state.username,
                                 rules: [{ required: true, message: '请输入用户名!' }],
                             })(
                                 <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="账户" />
                             )}
                         </FormItem>
                         <FormItem>
-                            {getFieldDecorator('password', {
+                            {getFieldDecorator('password', {initialValue: this.state.password,
                                 rules: [{ required: true, message: '请输入密码!' }],
                             })(
                                 <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="密码" />
@@ -47,7 +76,7 @@ class LoginPage extends React.Component {
                         <FormItem>
                             {getFieldDecorator('remember', {
                                 valuePropName: 'checked',
-                                initialValue: true,
+                                initialValue: false,
                             })(
                                 <Checkbox>记住我</Checkbox>
                             )}

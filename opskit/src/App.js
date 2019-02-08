@@ -23,7 +23,7 @@ class App extends Component {
              <Route path="/database/" exact component={WebPage}></Route>
              <Route path="/docker/" exact component={WebPage}></Route>
              <Route path="/security/" exact component={WebPage}></Route>
-             <Route path="/essay/add" exact component={EssayCreatePage}></Route>
+             <Route path="/essay/add" exact render={() => isLogin(<EssayCreatePage />)}></Route>
              <Route path="/essay/view/" exact component={ArticleViewPage}></Route>
              <Route path="/index/" exact component={SearchPage}></Route>
              <Route component={SearchPage}></Route>

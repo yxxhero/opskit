@@ -9,6 +9,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { getQueryString } from '../../util/searchparse_helper';
 import './articleview.css'
 import { getnoteinfo } from '../../redux/note.redux'
+import RecommendIndex from '../recommend/recommend'
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
 
@@ -152,6 +153,8 @@ class ArticleView extends Component {
                    </Row>
                 </Col>
                 <Col span={7}>
+                  <Row>
+                    <Col span={24}>
                   <Card
                     size="small"
                     title="视频系列"
@@ -186,6 +189,14 @@ class ArticleView extends Component {
                     </InfiniteScroll>
                   </div>
                   </Card>
+              </Col>
+              </Row>
+              <br />
+                  <Row>
+                    <Col span={24}>
+                      <RecommendIndex />
+                </Col>
+              </Row>
                 </Col>
               </Row>
           </div>

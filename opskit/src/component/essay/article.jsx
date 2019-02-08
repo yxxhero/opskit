@@ -3,31 +3,11 @@ import { connect  } from 'react-redux';
 import { Button, Card, Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
 import { withRouter } from 'react-router-dom'
 import { getnotelist } from '../../redux/notes.redux'
+import RecommendIndex from '../recommend/recommend'
+import { IconText } from '../common/common'
 
 
 const { Meta } = Card;
-
-const IconText = ({ type, text }) => (
-  <span>
-    <Icon type={type} style={{ marginRight: 8 }} />
-    {text}
-  </span>
-);
-
-const data = [
-  {
-    title: 'Ant Design Title 1',
-  },
-  {
-    title: 'Ant Design Title 2',
-  },
-  {
-    title: 'Ant Design Title 3',
-  },
-  {
-    title: 'Ant Design Title 4',
-  },
-];
 
 @withRouter
 @connect(
@@ -84,7 +64,7 @@ class ArticleIndex extends React.Component {
               <List.Item
                 style={{background: "white"}}
                 key={item.title}
-                actions={[<IconText type="eye-o" text="156" />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
+                actions={[<IconText type="eye-o" text={item.view_count} />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
               >
                 <List.Item.Meta
                   avatar={<Avatar style={{ verticalAlign: 'middle'  }} src={item.useravatar} />}
@@ -113,22 +93,7 @@ class ArticleIndex extends React.Component {
 				<br />
 				<Row>
                  <Col span={24}>
-            <List
-              header="热门文章"
-              itemLayout="horizontal"
-              dataSource={data}
-              bordered={true}
-              renderItem={item => (
-                <List.Item 
-	    	    style={{background: "white"}}
-			    >
-                  <List.Item.Meta
-                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                    title={<a href="https://ant.design">{item.title}</a>}
-                  />
-                </List.Item>
-              )}
-            />
+                   <RecommendIndex />
              </Col>
 			</Row>
             </Col>

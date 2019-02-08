@@ -4,6 +4,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { LocaleProvider } from 'antd';
+import { CookiesProvider  } from 'react-cookie';
 import zhCN from 'antd/lib/locale-provider/zh_CN';
 
 import './index.css';
@@ -20,7 +21,9 @@ ReactDOM.render(
   (
    <LocaleProvider locale={zhCN}>
        <Provider store={store}>
+         <CookiesProvider>
           <App />
+         </CookiesProvider>
        </Provider>
    </LocaleProvider>
 ),
