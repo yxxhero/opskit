@@ -34,8 +34,8 @@ class MenuList extends Component {
            <Menu.Item key="security" onClick={this.handleMenuClick}>安全</Menu.Item>
            { checkSession() ?
            <SubMenu key="personal" title="个人主页">
-             <Menu.Item key="article">我的文章</Menu.Item>
-             <Menu.Item key="setting">设置</Menu.Item>
+             <Menu.Item key="article">个人中心</Menu.Item>
+             <Menu.Item key="setting">个人设置</Menu.Item>
            </SubMenu> : null
            }
          </Menu>
