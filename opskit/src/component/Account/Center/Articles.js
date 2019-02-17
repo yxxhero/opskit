@@ -1,46 +1,70 @@
 import React, { PureComponent } from 'react';
-import { List, Icon, Tag } from 'antd';
+import { List, Tag } from 'antd';
+import { connect  } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import ArticleListContent from '../../ArticleListContent';
-import styles from './Articles.less';
+import { IconText } from '../../common/common'
+import { getusernotelist } from '../../../redux/usernotes.redux'
+import './Articles.less';
 
+@withRouter
+@connect(
+  state => state.usernotes,
+  {getusernotelist}
+)
 class Center extends PureComponent {
+
+  state = {
+    pagesize: 10
+  };
+
+  componentDidMount () {
+    this.props.getusernotelist();
+  }
+
+  handlePageChange = (page, pagesize) => {
+    this.props.getusernotelist({page, page_size: pagesize});
+  }
+
+  handleShowSizeChange = (current, size) => {
+    this.props.getusernotelist({page: current, page_size:size});
+  }
+
   render() {
-    const {
-      list: { list },
-    } = this.props;
-    const IconText = ({ type, text }) => (
-      <span>
-        <Icon type={type} style={{ marginRight: 8 }} />
-        {text}
-      </span>
-    );
+    const {usernotetotal, usernotelist, usernotesloading} = this.props; 
     return (
       <List
-        size="large"
-        className={styles.articleList}
+        className='articleList'
         rowKey="id"
         itemLayout="vertical"
-        dataSource={list}
+        dataSource={usernotelist}
+        loading={usernotesloading}
+        pagination={{
+          onChange: this.handlePageChange, 
+          pageSize: this.state.pagesize,
+          total: usernotetotal, 
+          onShowSizeChange: this.handleShowSizeChange, 
+          showSizeChanger: true,
+          showQuickJumper: true,
+          showTotal: total => `总共 ${total} 条经验`
+        }}
         renderItem={item => (
           <List.Item
             key={item.id}
             actions={[
-              <IconText type="star-o" text={item.star} />,
-              <IconText type="like-o" text={item.like} />,
-              <IconText type="message" text={item.message} />,
+              <IconText type="eye-o" text={item.view_count} />,
+              <IconText type="message" text={10} />,
             ]}
           >
             <List.Item.Meta
               title={
-                <a className={styles.listItemMetaTitle} href={item.href}>
+                <a className='listItemMetaTitle' href={item.href}>
                   {item.title}
                 </a>
               }
               description={
                 <span>
-                  <Tag>Ant Design</Tag>
-                  <Tag>设计语言</Tag>
-                  <Tag>蚂蚁金服</Tag>
+                  <Tag>{item.note_type}</Tag>
                 </span>
               }
             />

@@ -13,13 +13,14 @@ function overrideEslintOptions(options) {
 }
 
 module.exports = function override(config, env) {
-   config = injectBabelPlugin(
-       ['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }],
-       config
-       ); 
+   config = injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config);
+   config = injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config);
+   config = rewireLess.withLoaderOptions({
+     javascriptEnabled: true
+   })(config, env); 
+
    config = injectBabelPlugin('transform-decorators-legacy',config);
    config = rewireEslint(config, env, overrideEslintOptions);
-   config = rewireLess(config, env);
    config.resolve.alias = {
      '@': resolve('src')
    }

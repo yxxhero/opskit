@@ -67,6 +67,7 @@ instance.interceptors.response.use(function(config){
         err.message = '连接服务器失败!'
     }
     NProgress.done();
+    message.destroy();
     message.error(err.message).then(
       () => {
       if (err && err.response) {

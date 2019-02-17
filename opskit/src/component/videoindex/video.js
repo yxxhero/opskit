@@ -56,7 +56,7 @@ class VideoIndex extends Component {
     }
     
     handleVideoClick = (video_id) => {
-          this.props.history.push(["/videoplay/", video_id].join(""));
+      this.props.history.push(["/video/play/", video_id].join(""));
     }
 
     render(){

@@ -1,69 +1,39 @@
 import React, { PureComponent } from 'react';
-import Link from 'umi/link';
-import router from 'umi/router';
-import { Card, Row, Col, Icon, Avatar, Tag, Divider, Spin, Input } from 'antd';
+import {withRouter } from 'react-router-dom'
+import { Breadcrumb, Card, Row, Col, Icon } from 'antd';
+import { connect  } from 'react-redux';
 import GridContent from '@/component/PageHeaderWrapper/GridContent';
-import styles from './Center.less';
+import { getuserinfo } from '../../../redux/userinfo.redux'
+import './Center.less';
 
+@withRouter
+@connect(
+  state => state.userinfo,
+  {getuserinfo}
+)
 class Center extends PureComponent {
   state = {
-    newTags: [],
-    inputVisible: false,
     inputValue: '',
+    activeKey: 'articles'
   };
 
   componentDidMount() {
-     console.log(this);
+     this.props.getuserinfo();
   }
 
   onTabChange = key => {
-    const { match } = this.props;
     switch (key) {
       case 'articles':
-        router.push(`${match.url}/articles`);
+        console.log(key);
         break;
       default:
         break;
     }
   };
 
-  showInput = () => {
-    this.setState({ inputVisible: true }, () => this.input.focus());
-  };
-
-  saveInputRef = input => {
-    this.input = input;
-  };
-
-  handleInputChange = e => {
-    this.setState({ inputValue: e.target.value });
-  };
-
-  handleInputConfirm = () => {
-    const { state } = this;
-    const { inputValue } = state;
-    let { newTags } = state;
-    if (inputValue && newTags.filter(tag => tag.label === inputValue).length === 0) {
-      newTags = [...newTags, { key: `new-${newTags.length}`, label: inputValue }];
-    }
-    this.setState({
-      newTags,
-      inputVisible: false,
-      inputValue: '',
-    });
-  };
-
   render() {
-    const { newTags, inputVisible, inputValue } = this.state;
     const {
-      listLoading,
-      currentUser,
-      currentUserLoading,
-      project: { notice },
-      projectLoading,
-      match,
-      location,
-      children,
+      children, username, userrole, useremail, userauditing, userinfoloading, useravatar, createtime, notecount
     } = this.props;
 
     const operationTabList = [
@@ -71,96 +41,59 @@ class Center extends PureComponent {
         key: 'articles',
         tab: (
           <span>
-            文章 <span style={{ fontSize: 14 }}>(8)</span>
+            文章 <span style={{ fontSize: 14 }}>({notecount})</span>
           </span>
         ),
       }
     ];
 
     return (
-      <GridContent className={styles.userCenter}>
+      <GridContent>
         <Row gutter={24}>
-          <Col lg={7} md={24}>
-            <Card bordered={false} style={{ marginBottom: 24 }} loading={currentUserLoading}>
-              {currentUser && Object.keys(currentUser).length ? (
+          <Col span={11} offset={1}>
+         <Breadcrumb style={{ margin: '16px 0' }}> 
+           <Breadcrumb.Item>首页</Breadcrumb.Item>
+           <Breadcrumb.Item>个人中心</Breadcrumb.Item>
+         </Breadcrumb>
+       </Col>
+       </Row>
+        <Row gutter={24}>
+          <Col span={7} offset={1}>
+            <Card bordered={false} style={{ marginBottom: 24 }} loading={userinfoloading}>
                 <div>
-                  <div className={styles.avatarHolder}>
-                    <img alt="" src={currentUser.avatar} />
-                    <div className={styles.name}>{currentUser.name}</div>
-                    <div>{currentUser.signature}</div>
+                  <div className='avatarHolder'>
+                    <img alt="" src={useravatar} />
+                    <div className='name'>{username}</div>
+                    <div>自我投资</div>
                   </div>
-                  <div className={styles.detail}>
+                  <div>
                     <p>
-                      <i className={styles.title} />
-                      {currentUser.title}
+                      <Icon type="idcard" className="detail"/>
+                      {userauditing ? "审核通过" : "未审核"}
                     </p>
                     <p>
-                      <i className={styles.group} />
-                      {currentUser.group}
+                      <Icon type="mail" className="detail"/>
+                      {useremail}
                     </p>
                     <p>
-                      <i className={styles.address} />
-                      {currentUser.geographic.province.label}
-                      {currentUser.geographic.city.label}
+                      <Icon type="user" className="detail"/>
+                      {userrole}
                     </p>
-                  </div>
-                  <Divider dashed />
-                  <div className={styles.tags}>
-                    <div className={styles.tagsTitle}>标签</div>
-                    {currentUser.tags.concat(newTags).map(item => (
-                      <Tag key={item.key}>{item.label}</Tag>
-                    ))}
-                    {inputVisible && (
-                      <Input
-                        ref={this.saveInputRef}
-                        type="text"
-                        size="small"
-                        style={{ width: 78 }}
-                        value={inputValue}
-                        onChange={this.handleInputChange}
-                        onBlur={this.handleInputConfirm}
-                        onPressEnter={this.handleInputConfirm}
-                      />
-                    )}
-                    {!inputVisible && (
-                      <Tag
-                        onClick={this.showInput}
-                        style={{ background: '#fff', borderStyle: 'dashed' }}
-                      >
-                        <Icon type="plus" />
-                      </Tag>
-                    )}
-                  </div>
-                  <Divider style={{ marginTop: 16 }} dashed />
-                  <div className={styles.team}>
-                    <div className={styles.teamTitle}>团队</div>
-                    <Spin spinning={projectLoading}>
-                      <Row gutter={36}>
-                        {notice.map(item => (
-                          <Col key={item.id} lg={24} xl={12}>
-                            <Link to={item.href}>
-                              <Avatar size="small" src={item.logo} />
-                              {item.member}
-                            </Link>
-                          </Col>
-                        ))}
-                      </Row>
-                    </Spin>
+                    <p>
+                      <Icon type="hourglass" className="detail"/>
+                      {createtime}
+                    </p>
                   </div>
                 </div>
-              ) : (
-                'loading...'
-              )}
             </Card>
           </Col>
-          <Col lg={17} md={24}>
+          <Col span={16}>
             <Card
-              className={styles.tabsCard}
+              className='tabsCard'
               bordered={false}
               tabList={operationTabList}
-              activeTabKey={location.pathname.replace(`${match.path}/`, '')}
+              activeTabKey={this.state.activeKey}
               onTabChange={this.onTabChange}
-              loading={listLoading}
             >
               {children}
             </Card>
@@ -172,3 +105,4 @@ class Center extends PureComponent {
 }
 
 export default Center;
+

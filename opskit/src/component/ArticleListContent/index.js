@@ -1,15 +1,14 @@
 import React from 'react';
 import moment from 'moment';
 import { Avatar } from 'antd';
-import styles from './index.less';
+import './index.less';
 
-const ArticleListContent = ({ data: { content, updatedAt, avatar, owner, href } }) => (
-  <div className={styles.listContent}>
-    <div className={styles.description}>{content}</div>
-    <div className={styles.extra}>
-      <Avatar src={avatar} size="small" />
-      <a href={href}>{owner}</a> 发布在 <a href={href}>{href}</a>
-      <em>{moment(updatedAt).format('YYYY-MM-DD HH:mm')}</em>
+const ArticleListContent = ({ data: { update_time, useravatar, username, href, note_type } }) => (
+  <div className='listContent'>
+    <div className='extra'>
+      <Avatar src={useravatar} size="small" />
+      <a href={href}>{username}</a> 发布在 <a href={href}>{note_type}</a>
+      <em>{moment(update_time).format('YYYY-MM-DD HH:mm')}</em>
     </div>
   </div>
 );

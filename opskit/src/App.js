@@ -8,6 +8,8 @@ import { EssayCreatePage } from './container/essay/essaycreate'
 import { ArticleViewPage } from './container/essay/articleview'
 import { VideoPage } from './container/video/video'
 import { VideoPlayPage } from './container/videoplay/videoplay'
+import { AccountCenter } from './container/account/center'
+import { AccountSettingBase } from './container/account/baseinfo'
 import { isLogin } from './util/util'
 
 class App extends Component {
@@ -18,13 +20,15 @@ class App extends Component {
              <Route path="/login/" exact component={LoginPage}></Route>
              <Route path="/register/" exact component={RegisterPage}></Route>
              <Route path="/video/"  exact render={() => isLogin(<VideoPage />)}></Route>
-             <Route path="/videoplay/" exact render={() => isLogin(<VideoPlayPage />)}></Route>
+             <Route path="/video/play/" exact render={() => isLogin(<VideoPlayPage />)}></Route>
              <Route path="/web/" exact component={WebPage}></Route>
              <Route path="/database/" exact component={WebPage}></Route>
              <Route path="/docker/" exact component={WebPage}></Route>
              <Route path="/security/" exact component={WebPage}></Route>
-             <Route path="/essay/add" exact render={() => isLogin(<EssayCreatePage />)}></Route>
+             <Route path="/essay/add/" exact render={() => isLogin(<EssayCreatePage />)}></Route>
              <Route path="/essay/view/" exact component={ArticleViewPage}></Route>
+             <Route path="/account/center/" exact component={AccountCenter}></Route>
+             <Route path="/account/setting/base/" exact component={AccountSettingBase}></Route>
              <Route path="/index/" exact component={SearchPage}></Route>
              <Route component={SearchPage}></Route>
            </Switch>
