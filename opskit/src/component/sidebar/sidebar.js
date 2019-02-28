@@ -15,19 +15,27 @@ const FormItem = Form.Item;
 )
 class SideBar extends Component {
   handlelogin = () => {
-      this.props.history.push("/login"); 
+    this.props.history.push("/login"); 
   }
+
   handleregister = () => {
-      this.props.history.push("/register"); 
+    this.props.history.push("/register"); 
+  }
+
+  handleaccountinfo = () => {
+    this.props.history.push("/account/setting/base/"); 
+  }
+  handleaccountcenter = () => {
+    this.props.history.push("/account/center/"); 
   }
   render() {
     const menu = (
       <Menu>
         <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" onClick={() => console.log(this)}>个人信息</a>
+          <a target="_blank" rel="noopener noreferrer" onClick={() => this.handleaccountinfo()}>个人信息</a>
         </Menu.Item>
         <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" onClick={() => console.log(this)}>我的文章</a>
+          <a target="_blank" rel="noopener noreferrer" onClick={() => this.handleaccountcenter()}>我的文章</a>
         </Menu.Item>
         <Menu.Item>
           <a target="_blank" rel="noopener noreferrer" onClick={() => this.props.logout()}>退出登录</a>

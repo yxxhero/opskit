@@ -7,7 +7,7 @@ const ArticleListContent = ({ data: { update_time, useravatar, username, href, n
   <div className='listContent'>
     <div className='extra'>
       <Avatar src={useravatar} size="small" />
-      <a href={href}>{username}</a> 发布在 <a href={href}>{note_type}</a>
+      发布在 <a href={href}>{note_type}</a>
       <em>{moment(update_time).format('YYYY-MM-DD HH:mm')}</em>
     </div>
   </div>

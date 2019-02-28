@@ -16,6 +16,13 @@ export function checkSession(){
   return false;
 }
 
+export function checkAdmin(){
+  if (sessionStorage.getItem("username") === "admin" && sessionStorage.getItem("jwttoken")){
+    return true;
+  }
+  return false;
+}
+
 export function isLogin(commponent){
   if (checkSession()){
      return commponent;

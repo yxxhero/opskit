@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Form, Input, Upload, Button, Skeleton } from 'antd';
+import { Form, Input, Upload, Button, Skeleton, message } from 'antd';
 import { connect  } from 'react-redux';
+import { putAjax } from '../../../util/axios';
 import { getuserinfo } from '../../../redux/userinfo.redux'
 import './BaseView.less';
 
@@ -49,10 +50,27 @@ class BaseView extends Component {
      this.props.getuserinfo();
   }
 
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const _that = this;
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+      putAjax('/resource/userinfo',{useremail: values.email, userdescription: values.profile },
+        function(response){
+            console.log(response);
+            message.success("信息更新成功")
+            _that.props.getuserinfo();
+        }
+      )
+
+      }
+    })
+  }
+
   render() {
     const { form: { getFieldDecorator } } = this.props;
     const {
-      username, useremail, userinfoloading, userdescription
+      useremail, userinfoloading, userdescription
     } = this.props;
     return (
       <div className='baseView' ref={this.getViewDom}>
@@ -66,17 +84,6 @@ class BaseView extends Component {
                   {
                     required: true,
                     message: "邮箱不能为空",
-                  },
-                ],
-              })(<Input />)}
-            </FormItem>
-            <FormItem label="昵称">
-              {getFieldDecorator('name', {
-                initialValue: username,
-                rules: [
-                  {
-                    required: true,
-                    message: "昵称不能为空" 
                   },
                 ],
               })(<Input />)}
@@ -97,7 +104,7 @@ class BaseView extends Component {
                 />
               )}
             </FormItem>
-            <Button type="primary">
+            <Button type="primary" htmlType="submit">
               更新基本信息
             </Button>
           </Form>

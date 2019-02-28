@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { Menu } from 'antd';
 import { withRouter } from 'react-router-dom'
-import { replaceAll, checkSession } from '../../util/util'
+import { checkAdmin, replaceAll, checkSession } from '../../util/util'
 
 const SubMenu = Menu.SubMenu;
-const menuItemList = [".video.", ".index.",".web.",".database.",".docker.",".security.", ".essay.add.", ".video.play.", ".essay.view.", ".account.center.", ".account.setting.base."]; 
+const menuItemList = [".video.", ".index.",".web.",".database.",".docker.",".security.", ".essay.add.", ".video.play.", ".essay.view.", ".account.center.", ".account.setting.base.", ".admin.user.", ".admin.essay."]; 
 
 @withRouter
 class MenuList extends Component {
@@ -36,6 +36,13 @@ class MenuList extends Component {
            <SubMenu key="account" title="个人主页">
              <Menu.Item key=".account.center." onClick={this.handleMenuClick}>个人中心</Menu.Item>
              <Menu.Item key=".account.setting.base." onClick={this.handleMenuClick}>个人设置</Menu.Item>
+           </SubMenu> : null
+           }
+
+           { checkAdmin() ?
+           <SubMenu key="admin" title="后台管理">
+             <Menu.Item key=".admin.user." onClick={this.handleMenuClick}>用户审核</Menu.Item>
+             <Menu.Item key=".admin.essay." onClick={this.handleMenuClick}>文章审核</Menu.Item>
            </SubMenu> : null
            }
          </Menu>

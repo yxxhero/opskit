@@ -4,10 +4,17 @@ import logo from '../../style/img/logo.png'
 import { Layout, BackTop, Row, Col } from 'antd';
 import { TopTips } from '../../component/toptips/toptips'
 import SideBar from '../../component/sidebar/sidebar'
+import { withRouter } from 'react-router-dom'
 import MenuList from '../../component/menu/menu'
 
 const { Header, Footer, Content } = Layout;
+
+@withRouter
 class CustomLayout extends Component {
+
+  componentDidMount(){
+    sessionStorage.setItem('pre_url', this.props.location.pathname + this.props.location.search);
+  }
 
   render() {
     const { CustomContent } = this.props; 

@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react';
-import { List, Tag } from 'antd';
+import { Modal, Icon, List, Tag, message } from 'antd';
 import { connect  } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import ArticleListContent from '../../ArticleListContent';
 import { IconText } from '../../common/common'
+import { deleteAjax } from '../../../util/axios'
 import { getusernotelist } from '../../../redux/usernotes.redux'
 import './Articles.less';
+const confirm = Modal.confirm;
 
 @withRouter
 @connect(
@@ -28,6 +30,25 @@ class Center extends PureComponent {
 
   handleShowSizeChange = (current, size) => {
     this.props.getusernotelist({page: current, page_size:size});
+  }
+
+  handleessaydelete = (id) => {
+    const _that = this;
+    confirm({
+      title: '确定删除吗?',
+      onOk() {
+        deleteAjax('/resource/note', {id}, 
+          function (response){
+            message.success("删除成功");
+            _that.props.getusernotelist();
+          }
+        )
+      }
+    });
+  }
+
+  handleessayedit = (id) => {
+    this.props.history.push('/essay/edit/?note_id=' + id);
   }
 
   render() {
@@ -54,6 +75,8 @@ class Center extends PureComponent {
             actions={[
               <IconText type="eye-o" text={item.view_count} />,
               <IconText type="message" text={10} />,
+              <Icon type="delete" onClick={() => this.handleessaydelete(item.id)} />,
+              <Icon type="edit" onClick={() => this.handleessayedit(item.id)}/>
             ]}
           >
             <List.Item.Meta
@@ -64,7 +87,7 @@ class Center extends PureComponent {
               }
               description={
                 <span>
-                  <Tag>{item.note_type}</Tag>
+                  <Tag>{ item.is_public ? '已审核' : '未审核' }</Tag>
                 </span>
               }
             />

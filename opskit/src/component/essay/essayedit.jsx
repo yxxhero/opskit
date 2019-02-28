@@ -4,26 +4,35 @@ import 'braft-editor/dist/index.css';
 import { withRouter  } from 'react-router-dom'
 import BraftEditor from 'braft-editor'
 import { Select, Form, Input, Button, Row, Col, message } from 'antd';
-import { postAjax } from '../../util/axios';
+import { getAjax, putAjax } from '../../util/axios';
+import { getQueryString } from '../../util/searchparse_helper';
 import './essay.css'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-const essaytype = {1: "database", 2: "web", 3: "docker", 4: "security"};
 
 
 @withRouter
 @Form.create()
-class EssayCreateForm extends Component {
+class EssayEditForm extends Component {
 
   componentDidMount () {
 
-    // 异步设置编辑器内容
-    setTimeout(() => {
-      this.props.form.setFieldsValue({
-        content: BraftEditor.createEditorState()
-      })
-    }, 1000)
+      const _that = this;
+      if(getQueryString(this.props.location.search).note_id){
+      getAjax('/resource/note', {id: getQueryString(this.props.location.search).note_id},
+        function(response){
+            _that.props.form.setFieldsValue({
+                content: BraftEditor.createEditorState(response.data.data.raw_content),
+                title: response.data.data.title,
+                note_type: response.data.data.note_type
+
+              }
+          )
+        });
+      }else{
+        message.error("缺少文章id");
+      };
 
   }
 
@@ -32,20 +41,19 @@ class EssayCreateForm extends Component {
     event.preventDefault()
 
     this.props.form.validateFields((error, values) => {
-      console.log(values);
       if (!error) {
         const submitData = {
+          id: getQueryString(this.props.location.search).note_id,
           title: values.title,
           raw_content: values.content.toRAW(), 
           content: values.content.toHTML(),
           note_type: values.note_type
         }
         console.log(submitData)
-        const _that = this;
-        postAjax('/resource/note', submitData,
+        putAjax('/resource/note', submitData,
           function(response){
-            console.log(response);
-            message.success(response.data.msg, 1).then(() => _that.props.history.push('/' + essaytype[values.note_type] + '/'));
+              console.log(response);
+              message.success(response.data.msg);
           }
         )
       }
@@ -160,4 +168,4 @@ class EssayCreateForm extends Component {
 
 }
 
-export default EssayCreateForm;
+export default EssayEditForm;
