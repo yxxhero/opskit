@@ -11,6 +11,8 @@ class SearchIndex extends Component {
     render(){
 	    return (
           <div>
+         <Row>
+         <Col span={20} offset={2}>
          <Breadcrumb style={{ margin: '16px 0' }}> 
            <Breadcrumb.Item>首页</Breadcrumb.Item>
            <Breadcrumb.Item>搜索</Breadcrumb.Item>
@@ -60,6 +62,8 @@ class SearchIndex extends Component {
               </Col>
               <Col span={6}>
                 <Card title="Card title" bordered={false}>Card content</Card>
+              </Col>
+            </Row>
               </Col>
             </Row>
           </div> 

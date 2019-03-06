@@ -17,7 +17,7 @@ export function checkSession(){
 }
 
 export function checkAdmin(){
-  if (sessionStorage.getItem("username") === "admin" && sessionStorage.getItem("jwttoken")){
+  if (sessionStorage.getItem("userrole") === "Admin" && sessionStorage.getItem("jwttoken")){
     return true;
   }
   return false;

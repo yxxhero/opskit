@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect  } from 'react-redux';
 import { login } from '../../redux/user.redux'
+import { withRouter } from 'react-router-dom'
 import { instanceOf  } from 'prop-types';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Divider, Form, Icon, Input, Button, Checkbox } from 'antd';
 import { withCookies, Cookies } from 'react-cookie';
 import './login.less'
 import logo from '../../style/img/logo.png'
@@ -10,6 +11,7 @@ import logo from '../../style/img/logo.png'
 const FormItem = Form.Item;
 
 @Form.create()
+@withRouter
 @withCookies
 @connect(
   state => state.user,
@@ -35,6 +37,9 @@ class LoginPage extends React.Component {
         }
  
     } 
+    handleLogoClick = () => {
+      this.props.history.push("/");
+    }
 
     handleSubmit = (e) => {
         const { cookies } = this.props;
@@ -55,8 +60,8 @@ class LoginPage extends React.Component {
         return (
             <div className="login">
                 <div className="login-form" >
-                    <div className="login-logo">
-							 <img src={logo} alt="" style={{width: 230}}/>
+                  <div className="login-logo" onClick={() => this.handleLogoClick()}>
+                      <img src={logo} alt="" style={{width: 230}} />
                     </div>
                     <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px', marginTop:50}}>
                         <FormItem>
@@ -80,7 +85,11 @@ class LoginPage extends React.Component {
                             })(
                                 <Checkbox>记住我</Checkbox>
                             )}
-                            <a className="login-form-forgot" href="" style={{float: 'right'}}>忘记密码</a>
+                            <span style={{float: 'right'}}>
+                              <a className="login-form-forgot" href="">忘记密码</a>
+                              <Divider type="vertical" />
+                              <a className="login-form-forgot" href="/register">注册</a>
+                            </span>
                             <Button type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}}>
                                 登录
                             </Button>

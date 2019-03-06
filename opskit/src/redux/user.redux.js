@@ -46,9 +46,10 @@ export function login(username,password){
             console.log(response);
             sessionStorage.setItem("username", response.data.username);
             sessionStorage.setItem("jwttoken", response.data.token);
+            sessionStorage.setItem("userrole", response.data.userrole);
             const url = sessionStorage.getItem("pre_url") ? sessionStorage.getItem("pre_url") : '/';
             message.success("登录成功, 跳转中...", 1).then(() => window.location.href = url);
-            dispatch(loginSubmit({"username": response.data.username, "jwttoken": response.data.token}))
+            dispatch(loginSubmit({"username": response.data.username, "jwttoken": response.data.token, "userrole": response.data.userrole}))
         }
       )
 	}

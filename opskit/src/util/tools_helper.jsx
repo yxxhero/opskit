@@ -33,7 +33,9 @@ export function CustomUploadFn(param){
          console.log(response);
         if (response.data.code === 0){
            param.success({
-                 url: response.data.url 
+                 url: response.data.url,
+                 width: '100%',
+                 height: '100%'
            });
         }else{
            message.error(response.data.msg);
