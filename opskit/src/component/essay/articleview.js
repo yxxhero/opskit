@@ -1,51 +1,23 @@
 import React, { Component } from 'react';
-import {Empty, message, Avatar, Spin, Row, Col, Card, Comment, Tooltip, List} from 'antd';
+import {Empty, message, Avatar, Spin, Row, Col, Card, List, Icon} from 'antd';
 import { withRouter  } from 'react-router-dom'
 import { connect  } from 'react-redux';
 import "video-react/dist/video-react.css";
-import moment from 'moment';
 import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
 import { getQueryString } from '../../util/searchparse_helper';
+import { postAjax } from '../../util/axios';
 import './articleview.css'
-import { getnoteinfo } from '../../redux/note.redux'
+import { getnoteinfo, getcommentlist } from '../../redux/note.redux'
 import RecommendIndex from '../recommend/recommend'
+import CommentForm from '../comment/comment'
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
 
-
-const data = [
-  {
-    actions: [<span>Reply to</span>],
-    author: 'Han Solo',
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-    content: (
-      <p>We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.</p>
-    ),
-    datetime: (
-      <Tooltip title={moment().subtract(1, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-        <span>{moment().subtract(1, 'days').fromNow()}</span>
-      </Tooltip>
-    ),
-  },
-  {
-    actions: [<span>Reply to</span>],
-    author: 'Han Solo',
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-    content: (
-      <p>We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.</p>
-    ),
-    datetime: (
-      <Tooltip title={moment().subtract(2, 'days').format('YYYY-MM-DD HH:mm:ss')}>
-        <span>{moment().subtract(2, 'days').fromNow()}</span>
-      </Tooltip>
-    ),
-  },
-];
 
 @withRouter
 @connect(
   state => state.note,
-  {getnoteinfo}
+  {getnoteinfo, getcommentlist}
 )
 class ArticleView extends Component {
     state = {
@@ -55,9 +27,42 @@ class ArticleView extends Component {
         
     }
 
+    handleCommentSubmit = (value) => {
+      if(!value.length){
+        message.error("评论内容不能为空");
+        return;
+      }
+      postAjax('/resource/comments', {
+        id: getQueryString(this.props.location.search).note_id,
+        content: value
+      },
+          function(response){
+            message.success("评论成功");
+          }
+        )
+
+    }
+
+    handlePageChange = (page, pageSize) => {
+          this.props.getcommentlist({
+            page: page,
+            page_size: pageSize,
+            note_id: getQueryString(this.props.location.search).note_id 
+          })
+    }
+
+    handlePageSizeChange = (current, size) => {
+          this.props.getcommentlist({
+            page: current,
+            page_size: size,
+            note_id: getQueryString(this.props.location.search).note_id 
+          })
+    }
+
     componentDidMount () {
       if(getQueryString(this.props.location.search).note_id){
         this.props.getnoteinfo({id: getQueryString(this.props.location.search).note_id});
+        this.props.getcommentlist({note_id: getQueryString(this.props.location.search).note_id})
       }else{
         message.error("缺少文章id");
       };
@@ -124,7 +129,33 @@ class ArticleView extends Component {
                    <Row>
                      <Col span={24}>
                        <Card
-                         title="测试视频"
+                         title={
+                           <div>
+                           <Row gutter={48}>
+                             <Col span={1}>
+                               <Avatar style={{width: '45px', height: '45px', lineHeight: '45px'}} shape="square" size="large" src={this.props.noteinfo.useravatar} /> 
+                             </Col>
+                             <Col span={8}>
+                             <div>
+                               <span style={{display: 'block'}}>{this.props.noteinfo.username}</span>
+                               <span>{this.props.noteinfo.title}</span>
+                             </div>
+                             </Col>
+                             <Col span={11}>
+                             <div>
+                               <span style={{display: 'block'}}>更新时间</span>
+                               <span>{this.props.noteinfo.updatetime}</span>
+                             </div>
+                             </Col>
+                             <Col span={2}>
+                             <div style={{float: 'right'}}>
+                               <span style={{display: 'block'}}> <Icon type="eye" style={{marginRight: '10px'}}/> {this.props.noteinfo.view_count}</span>
+                               <span> <Icon type="message" style={{marginRight: '14px'}}/>{this.props.noteinfo.comment_count}</span>
+                             </div>
+                             </Col>
+                           </Row>
+                           </div>
+                         }
                          bodyStyle={{padding: '0px'}}
                        >
                          { this.props.noteinfo.content ? <div style={{margin: '10px'}}  dangerouslySetInnerHTML = {{__html: this.props.noteinfo.content }} ></div> : <Empty />}
@@ -134,25 +165,18 @@ class ArticleView extends Component {
                    <br />
                    <Row>
                      <Col span={24}>
-                         <List
-                           bordered={true}
-                           itemLayout="horizontal"
-                           dataSource={data}
-                           renderItem={item => (
-                             <Comment
-                               style={{background: "white", paddingLeft: "8px"}} 
-                               actions={item.actions}
-                               author={item.author}
-                               avatar={item.avatar}
-                               content={item.content}
-                               datetime={item.datetime}
-                             />
-                           )}
-                         />
+                       <CommentForm 
+                         handlePageChange={this.handlePageChange}
+                         handlePageSizeChange={this.handlePageSizeChange}
+                         commenttotal={this.props.commenttotal}
+                         handleCommentSubmit={this.handleCommentSubmit}
+                         submitting={false}
+                         comments={this.props.commentlist}
+                       />
                      </Col>
                    </Row>
                 </Col>
-                <Col span={7}>
+                <Col span={6}>
                   <Row>
                     <Col span={24}>
                   <Card

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form, Icon, Input, Button, message } from 'antd';
 import { connect  } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import { register } from '../../redux/user.redux' 
 import './register.less'
 import logo from '../../style/img/logo.png'
@@ -8,11 +9,17 @@ import logo from '../../style/img/logo.png'
 const FormItem = Form.Item;
 
 @Form.create()
+@withRouter
 @connect(
   state => state.user,
   {register}
 )
 class RegisterPage extends React.Component {
+
+    handleLogoClick = () => {
+      this.props.history.push("/");
+    }
+
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -30,7 +37,7 @@ class RegisterPage extends React.Component {
         return (
             <div className="login">
                 <div className="login-form" >
-                    <div className="login-logo">
+                    <div className="login-logo" onClick={() => this.handleLogoClick()}>
 							 <img src={logo} alt="" style={{width: 230}}/>
                     </div>
                     <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px', marginTop:50}}>

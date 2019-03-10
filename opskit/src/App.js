@@ -16,6 +16,7 @@ import { AccountCenter } from './container/account/center'
 import { AccountSettingBase } from './container/account/baseinfo'
 import { AdminUserPage } from './container/admin/user'
 import { AdminNotePage } from './container/admin/essay'
+import { AdminCommentPage } from './container/admin/comment'
 import { isLogin } from './util/util'
 
 
@@ -27,6 +28,7 @@ class App extends Component {
              <Route path="/login/" exact component={LoginPage}></Route>
              <Route path="/admin/user/" exact component={AdminUserPage}></Route>
              <Route path="/admin/essay/" exact component={AdminNotePage}></Route>
+             <Route path="/admin/comment/" exact component={AdminCommentPage}></Route>
              <Route path="/register/" exact component={RegisterPage}></Route>
              <Route path="/video/"  exact render={() => isLogin(<VideoPage />)}></Route>
              <Route path="/video/play/" exact render={() => isLogin(<VideoPlayPage />, this)}></Route>

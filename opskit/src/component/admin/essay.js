@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
-import { message, Avatar, Switch, Divider, Table, Select, Card, Col, Row, Breadcrumb, Form, Input, Button } from 'antd';
+import { Tooltip, message, Avatar, Switch, Divider, Table, Select, Card, Col, Row, Breadcrumb, Form, Input, Button } from 'antd';
 import { connect  } from 'react-redux';
-import { getnotelist } from '../../redux/adminnote.redux'
+import { getadminnotelist } from '../../redux/adminnote.redux'
 import { putAjax } from '../../util/axios'
+import { cutstr } from '../../util/util'
 
 const Option = Select.Option;
 
 @Form.create()
 @connect(
   state => state.adminnotes,
-  {getnotelist}
+  {getadminnotelist}
 )
 class AdminNoteIndex extends Component {
 
     componentDidMount () {
-        this.props.getnotelist();
+		console.log(this.props)	
+        this.props.getadminnotelist();
 	} 
 
     handlePageChaneg = (page, pageSize) => {
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          this.props.getnotelist({
+          this.props.getadminnotelist({
             page: page,
             pagesize: pageSize,
             keyword: values.keyword,
@@ -34,10 +36,10 @@ class AdminNoteIndex extends Component {
       console.log(current, size);
       this.props.form.validateFieldsAndScroll((err, values) => {
         if (!err) {
-          this.props.getnotelist({
+          this.props.getadminnotelist({
             page: current,
             pagesize: size,
-            username: values.keyword,
+            keyword: values.keyword,
             is_public: values.is_public
           })
         }
@@ -48,8 +50,8 @@ class AdminNoteIndex extends Component {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
-            this.props.getnotelist({
-              username: values.keyword,
+            this.props.getadminnotelist({
+              keyword: values.keyword,
               is_public: values.is_public
             })
           }
@@ -63,8 +65,8 @@ class AdminNoteIndex extends Component {
           message.success("修改成功");
           _that.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-              _that.props.getnotelist({
-                username: values.keyword,
+              _that.props.getadminnotelist({
+                keyword: values.keyword,
                 is_public: values.is_public
               })
             }
@@ -78,7 +80,8 @@ class AdminNoteIndex extends Component {
       const columns = [{
         title: '标题',
         dataIndex: 'title',
-        align: 'center'
+        align: 'center',
+        render: (text) => <Tooltip title={text}>{cutstr(text)}</Tooltip> 
       }, {
         title: '用户名',
         align: 'center',
@@ -111,7 +114,6 @@ class AdminNoteIndex extends Component {
         align: 'center',
         dataIndex: 'is_public',
         render: (text, record) => {
-          console.log(text);
           return <Switch checked={text} onChange={(status) => this.handleswitchChange(status, record)} />; 
         }
       }];
@@ -121,7 +123,7 @@ class AdminNoteIndex extends Component {
           },
           wrapperCol: {
             sm: { span: 16 }
-          },
+          }
         }
         const formButtonLayout = {
           labelCol: {
@@ -129,7 +131,7 @@ class AdminNoteIndex extends Component {
           },
           wrapperCol: {
             sm: { span: 2, offset: 14 }
-          },
+          }
         }
         const { getFieldDecorator  } = this.props.form;
 	    return (
@@ -194,18 +196,18 @@ class AdminNoteIndex extends Component {
                   <Row>
                    <Col span={24}>
                      <Table 
-                       rowKey="username"
+                       rowKey="id"
                        loading={this.props.loading}
                        dataSource={this.props.notelist} 
+                       columns={columns} 
                        pagination={{
                          showQuickJumper: true,
                          showSizeChanger: true,
-                         total: this.props.total,
+                         total: this.props.notetotal,
                          onChange: this.handlePageChaneg,
                          onShowSizeChange: this.handlePageSizeChange,
                          showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} `
                        }}
-                       columns={columns} 
                      />
                    </Col>
                   </Row>

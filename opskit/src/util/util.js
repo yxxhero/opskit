@@ -9,6 +9,13 @@ export function replaceAll(s,f,e){
     return s.replace(reg,e); 
 }
 
+export function cutstr( content,len=30){
+  if (content.length <= len){
+    return content;
+  }
+  return content.slice(0, len) + '...'; 
+}
+
 export function checkSession(){
   if (sessionStorage.getItem("username") && sessionStorage.getItem("jwttoken")){
     return true;

@@ -1,6 +1,6 @@
 import { getAjax} from '../util/axios';
 
-const GETNOTELIST = 'GETNOTELIST'
+const GETADMINNOTELIST = 'GETADMINNOTELIST'
 const STARTNOTESLOADING = 'STARTNOTESLOADING'
 const STOPNOTESLOADING = 'STOPNOTESLOADING'
 
@@ -13,8 +13,8 @@ const initState={
 // reducer
 export function adminnotes(state=initState, action){
 	switch(action.type){
-		case GETNOTELIST:
-			return {...state, notelist: action.payload.data,  total: action.payload.total}
+		case GETADMINNOTELIST:
+			return {...state, notelist: action.payload.data,  notetotal: action.payload.total}
 		case STARTNOTESLOADING:
 			return {...state, loading: true}
 		case STOPNOTESLOADING:
@@ -24,8 +24,8 @@ export function adminnotes(state=initState, action){
 	}
 } 
 
-export function getNoteList(payload){
-	return { type: GETNOTELIST, payload }
+export function getAdminNoteList(payload){
+	return { type: GETADMINNOTELIST, payload }
 }
 
 export function startNoteLoading(){
@@ -36,13 +36,13 @@ export function stopNoteLoading(){
 	return { type: STOPNOTESLOADING }
 }
 
-export function getnotelist(noteargs){
+export function getadminnotelist(noteargs){
 	return dispatch=>{
       dispatch(startNoteLoading());
       getAjax('/admin/notes', noteargs,
         function(response){
             dispatch(stopNoteLoading());
-            dispatch(getNoteList(response.data));
+            dispatch(getAdminNoteList(response.data));
         }
       )
 	}

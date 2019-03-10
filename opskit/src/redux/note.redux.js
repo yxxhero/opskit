@@ -7,6 +7,7 @@ const STOPLOADING = 'STOPLOADING'
 
 const initState={
 	commentlist:[],
+	commenttotal:0,
     loading: false,
     noteinfo:{}
 }
@@ -15,7 +16,7 @@ const initState={
 export function note(state=initState, action){
 	switch(action.type){
 		case GETCOMMENTLIST:
-			return {...state, commentlist: action.payload}
+			return {...state, commentlist: action.payload.data, commenttotal: action.payload.total}
 		case GETNOTEINFO:
 			return {...state, noteinfo: action.payload}
 		case STARTLOADING:
@@ -50,6 +51,16 @@ export function getnoteinfo(id){
             console.log(response);
             dispatch(stopLoading());
             dispatch(getNoteInfo(response.data.data));
+        }
+      )
+	}
+}
+
+export function getcommentlist(commentargs){
+	return dispatch=>{
+      getAjax('/resource/comments', commentargs,
+        function(response){
+            dispatch(getCommentList(response.data));
         }
       )
 	}

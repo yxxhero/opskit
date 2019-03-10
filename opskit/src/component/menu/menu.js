@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { checkAdmin, replaceAll, checkSession } from '../../util/util'
 
 const SubMenu = Menu.SubMenu;
-const menuItemList = [".video.", ".index.",".web.",".database.",".docker.",".security.", ".essay.add.", ".video.play.", ".essay.view.", ".account.center.", ".account.setting.base.", ".admin.user.", ".admin.essay."]; 
+const menuItemList = [".video.", ".index.",".web.",".database.",".docker.",".security.", ".essay.add.", ".video.play.", ".essay.view.", ".account.center.", ".account.setting.base.", ".admin.user.", ".admin.essay.", ".admin.comment."]; 
 
 @withRouter
 class MenuList extends Component {
@@ -41,8 +41,9 @@ class MenuList extends Component {
 
            { checkAdmin() ?
            <SubMenu key="admin" title="后台管理">
-             <Menu.Item key=".admin.user." onClick={this.handleMenuClick}>用户审核</Menu.Item>
              <Menu.Item key=".admin.essay." onClick={this.handleMenuClick}>文章审核</Menu.Item>
+             <Menu.Item key=".admin.user." onClick={this.handleMenuClick}>用户审核</Menu.Item>
+             <Menu.Item key=".admin.comment." onClick={this.handleMenuClick}>评论审核</Menu.Item>
            </SubMenu> : null
            }
          </Menu>

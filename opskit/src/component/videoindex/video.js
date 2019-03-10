@@ -73,7 +73,7 @@ class VideoIndex extends Component {
               <Row gutter={16} type="flex" justify="center" key={key_num}>
                 <Col span={5} key={card_list[item * 4]["video_id"]}>
  	                  	 <Card
-                           style={{ width: 250  }}
+                           style={{ width: 250, margin: 'auto'  }}
                            cover={<img alt={card_list[item * 4]["title"]} src={card_list[item * 4]["img_src"]} style={{cursor:"pointer"}} onClick={() => {this.handleVideoClick("")}}/>}
  	                  	   actions={[<Icon type="like" />, <Icon type="message" />]}
  	                  	 >
@@ -86,7 +86,7 @@ class VideoIndex extends Component {
                </Col>
                 <Col span={5} key={card_list[item * 4 + 1]["video_id"]}>
  	                  	 <Card
-                             style={{ width: 250  }}
+                             style={{ width: 250, margin: 'auto' }}
  	                  	   cover={<img alt={card_list[item * 4 + 1]["title"]} src={card_list[item * 4 + 1]["img_src"]} style={{cursor:"pointer"}} onClick={() => {this.handleVideoClick("")}}/>}
  	                  	   actions={[<Icon type="like" />, <Icon type="message" />]}
  	                  	 >
@@ -99,7 +99,7 @@ class VideoIndex extends Component {
                </Col>
                 <Col span={5} key={card_list[item * 4 + 2]["video_id"]}>
  	                  	 <Card
-                             style={{ width: 250  }}
+                             style={{ width: 250, margin: 'auto' }}
  	                  	   cover={<img alt={card_list[item * 4 + 2]["title"]} src={card_list[item * 4 + 2 ]["img_src"]} style={{cursor:"pointer"}} onClick={() => {this.handleVideoClick("")}}/>}
  	                  	   actions={[<Icon type="like" />, <Icon type="message" />]}
  	                  	 >
@@ -112,7 +112,7 @@ class VideoIndex extends Component {
                </Col>
                 <Col span={5} key={card_list[item * 4 + 3]["video_id"]}>
  	                  	 <Card
-                             style={{ width: 250  }}
+                             style={{ width: 250, margin: 'auto'}}
  	                  	   cover={<img alt={card_list[item * 4 + 3]["title"]} src={card_list[item * 4 + 3]["img_src"]} style={{cursor:"pointer"}} onClick={() => {this.handleVideoClick("")}}/>}
  	                  	   actions={[<Icon type="like" />, <Icon type="message" />]}
  	                  	 >
@@ -136,7 +136,7 @@ if(card_list_mod){
               col_list.push(
                 <Col span={5} key={card_list[item]["video_id"]}>
  	                  	 <Card
-                             style={{ width: 250  }}
+                             style={{ width: 250, margin: 'auto'  }}
  	                  	   cover={<img alt={card_list[item]["title"]} src={card_list[item]["img_src"]} style={{cursor:"pointer"}} onClick={() => {this.handleVideoClick("")}}/>}
  	                  	   actions={[<Icon type="like" />, <Icon type="message" />]}
  	                  	 >

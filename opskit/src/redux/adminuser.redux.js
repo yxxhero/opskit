@@ -14,7 +14,7 @@ const initState={
 export function adminusers(state=initState, action){
 	switch(action.type){
 		case GETUSERLIST:
-			return {...state, userlist: action.payload.data,  total: action.payload.total}
+			return {...state, userlist: action.payload.data,  usertotal: action.payload.total}
 		case STARTUSERSLOADING:
 			return {...state, loading: true}
 		case STOPUSERSLOADING:
