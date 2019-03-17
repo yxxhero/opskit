@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import { Tooltip, message, Icon, Avatar, Divider, Table, Select, Card, Col, Row, Breadcrumb, Form, Input, Button } from 'antd';
+import { Popconfirm, Tooltip, message, Icon, Avatar, Divider, Table, Select, Card, Col, Row, Breadcrumb, Form, Button } from 'antd';
 import { connect  } from 'react-redux';
 import { getadmincommentlist } from '../../redux/admincomment.redux'
-import { putAjax } from '../../util/axios'
+import { putAjax, deleteAjax } from '../../util/axios'
 import { cutstr } from '../../util/util'
 
 const Option = Select.Option;
-const StateDict = {
-  0: "审核中",
-  1: "已审核",
-  2: "未通过"
-}
 
 @Form.create()
 @connect(
@@ -23,6 +18,38 @@ class AdminCommentIndex extends Component {
 		console.log(this.props)	
         this.props.getadmincommentlist();
 	} 
+
+    handleStateChange = (id, value) => {
+      const _that = this;
+      putAjax('/admin/comments', {id: id, state: value},
+        function(response){
+          message.success("修改成功");
+          _that.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+              _that.props.getadmincommentlist({
+                state: values.state
+              })
+            }
+          });
+        }
+      )
+    }
+
+    handleCommentDelete = (id) => {
+      const _that = this;
+      deleteAjax('/admin/comments', {id: id},
+        function(response){
+          message.success("删除成功");
+          _that.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+              _that.props.getadmincommentlist({
+                state: values.state
+              })
+            }
+          });
+        }
+      )
+    }
 
     handlePageChaneg = (page, pageSize) => {
       this.props.form.validateFieldsAndScroll((err, values) => {
@@ -100,15 +127,33 @@ class AdminCommentIndex extends Component {
         title: '状态',
         align: 'center',
         dataIndex: 'state',
-        render: (text) => StateDict[text] 
+        render: (text, record) => {
+          return (<Select
+            showSearch
+            defaultValue={record.state}
+            style={{ width: 200 }}
+            optionFilterProp="children"
+            onChange={(value) => this.handleStateChange(record.id, value)}
+            filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+          >
+            <Option value={0}>审核中</Option>
+            <Option value={1}>已审核</Option>
+            <Option value={2}>未通过</Option>
+          </Select>)
+
+        }
       }, {
         title: '操作',
         align: 'center',
         dataIndex: 'id',
         render: (text, record) => {
-          return <Icon type="edit" onClick={() => console.log(record)}/>
+          return (
+            <Popconfirm title="确定删除吗?" onConfirm={() => this.handleCommentDelete(record.id)} okText="Yes" cancelText="No">
+            <Icon type="delete" style={{cursor: 'pointer'}}/>
+          </Popconfirm>
+            );
         }
-      }];
+     }];
         const formItemLayout = {
           labelCol: {
             sm: { span: 4 }

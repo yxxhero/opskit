@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {Card, Icon, Avatar, Row, Col, Form, Button, Select, Divider} from 'antd';
 import { withRouter  } from 'react-router-dom'
-import "./video.css"
 
 const formItemLayout = {
   labelCol: { span: 8 },

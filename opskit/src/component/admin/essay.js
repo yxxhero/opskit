@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Tooltip, message, Avatar, Switch, Divider, Table, Select, Card, Col, Row, Breadcrumb, Form, Input, Button } from 'antd';
+import { Popconfirm, Icon, Tooltip, message, Avatar, Switch, Divider, Table, Select, Card, Col, Row, Breadcrumb, Form, Input, Button } from 'antd';
 import { connect  } from 'react-redux';
 import { getadminnotelist } from '../../redux/adminnote.redux'
-import { putAjax } from '../../util/axios'
+import { putAjax, deleteAjax } from '../../util/axios'
 import { cutstr } from '../../util/util'
 
 const Option = Select.Option;
@@ -30,6 +30,23 @@ class AdminNoteIndex extends Component {
           })
         }
       });
+    }
+
+    handleEssayDelete = (id) => {
+      const _that = this;
+      deleteAjax('/admin/notes', {id: id},
+        function(response){
+          message.success("删除成功");
+          _that.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+              _that.props.getadminnotelist({
+                keyword: values.keyword,
+                is_public: values.is_public
+              })
+            }
+          });
+        }
+      )
     }
 
     handlePageSizeChange = (current, size) => {
@@ -116,7 +133,19 @@ class AdminNoteIndex extends Component {
         render: (text, record) => {
           return <Switch checked={text} onChange={(status) => this.handleswitchChange(status, record)} />; 
         }
-      }];
+      }, {
+        title: '操作',
+        align: 'center',
+        dataIndex: 'id',
+        render: (text, record) => {
+          return (
+            <Popconfirm title="确定删除吗?" onConfirm={() => this.handleEssayDelete(record.id)} okText="Yes" cancelText="No">
+            <Icon type="delete" style={{cursor: 'pointer'}}/>
+          </Popconfirm>
+            );
+        }
+      }
+      ];
         const formItemLayout = {
           labelCol: {
             sm: { span: 8 }

@@ -6,15 +6,17 @@ import {momentChinaize} from '../../util/time_helper';
 momentChinaize(moment)
 
 const TextArea = Input.TextArea;
-const CommentList = ({ comments, commenttotal, handlePageChange, handlePageSizeChange }) => (
+const CommentList = ({ pagesize, comments, commenttotal, handlePageChange, handlePageSizeChange }) => (
   <List
     dataSource={comments}
     itemLayout="horizontal"
     bordered={true}
+    split={true}
     header="文章评论"
     pagination={{
       showQuickJumper: true,
       showSizeChanger: true,
+      pageSize: pagesize,
       total: commenttotal,
       onChange: handlePageChange,
       onShowSizeChange: handlePageSizeChange,
@@ -54,7 +56,8 @@ const Editor = ({
 class CommentForm extends Component {
 
   state = {
-    value: ''
+    value: '',
+    pagesize: 10
   }
 
   handleChange = (e) => {
@@ -64,7 +67,7 @@ class CommentForm extends Component {
   }
 
   render () {
-    const { value } = this.state;
+    const { value, pagesize } = this.state;
     const { comments, submitting, handleCommentSubmit, commenttotal, handlePageChange, handlePageSizeChange } = this.props;
 
     return (
@@ -72,8 +75,15 @@ class CommentForm extends Component {
         {comments.length > 0 ? <CommentList 
           comments={comments}
           commenttotal={commenttotal}
+          pagesize={pagesize}
           handlePageChange={handlePageChange}
-          handlePageSizeChange={handlePageSizeChange}
+          handlePageSizeChange={(current, size) => {
+              this.setState({
+              pagesize: size
+              });
+              handlePageSizeChange(current, size);
+            }
+          }
         /> :
            <Alert style={{margin: "10px 0"}} message="暂无评论" type="info" />
         }

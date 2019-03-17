@@ -77,18 +77,16 @@ class SearchIndex extends Component {
             <Row gutter={16}>
               <Col span={12}>
                <Carousel autoplay>
-   			    <div><h3>自</h3></div>
-   			    <div><h3>我</h3></div>
-   			    <div><h3>投</h3></div>
-   			    <div><h3>资</h3></div>
+                 <a rel="noopener noreferrer" target="_blank" href="https://github.com/yxxhero">
+                   <img alt="" src="http://192.168.19.130/carousels/github.jpg" height="250" />
+                 </a>
     		   </Carousel> 
               </Col>
               <Col span={12}>
                <Carousel autoplay>
-   			    <div><h3>自</h3></div>
-   			    <div><h3>我</h3></div>
-   			    <div><h3>投</h3></div>
-   			    <div><h3>资</h3></div>
+                 <a rel="noopener noreferrer" target="_blank" href="https://github.com/yxxhero">
+                 <img alt="" src="http://192.168.19.130/carousels/devops.jpg" height="250" />
+                 </a>
     		   </Carousel> 
               </Col>
             </Row>
