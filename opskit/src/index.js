@@ -12,10 +12,17 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import reducers from './reducer'
 
-const store = createStore(reducers, compose(
-	applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-))
+let store = null;
+if (process.env.NODE_ENV === 'development') {
+    store = createStore(reducers, compose(
+    	applyMiddleware(thunk),
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    ))
+} else {
+    store = createStore(reducers, compose(
+    	applyMiddleware(thunk)
+    ))
+}
 
 ReactDOM.render(
   (

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Icon, message, Form, List, Avatar, Carousel, Card, Col, Row, Input, Breadcrumb } from 'antd';
 import { connect  } from 'react-redux';
 import { getsearchnotelist } from '../../redux/search.redux'
-import "./search.css"
 
 const Search = Input.Search;
 
@@ -55,7 +54,7 @@ class SearchIndex extends Component {
 	    return (
           <div>
          <Row>
-         <Col span={20} offset={2}>
+         <Col span={22} offset={1}>
          <Breadcrumb style={{ margin: '16px 0' }}> 
            <Breadcrumb.Item>首页</Breadcrumb.Item>
            <Breadcrumb.Item>搜索</Breadcrumb.Item>
@@ -78,14 +77,14 @@ class SearchIndex extends Component {
               <Col span={12}>
                <Carousel autoplay>
                  <a rel="noopener noreferrer" target="_blank" href="https://github.com/yxxhero">
-                   <img alt="" src="http://192.168.19.130/carousels/github.jpg" height="250" />
+                   <img alt="" src="https://www.aiopsclub.com/carousels/github.jpg" height="100%" width="100%"/>
                  </a>
     		   </Carousel> 
               </Col>
               <Col span={12}>
                <Carousel autoplay>
                  <a rel="noopener noreferrer" target="_blank" href="https://github.com/yxxhero">
-                 <img alt="" src="http://192.168.19.130/carousels/devops.jpg" height="250" />
+                   <img alt="" src="https://www.aiopsclub.com/carousels/devops.jpg" height="100%" width="100%"/>
                  </a>
     		   </Carousel> 
               </Col>

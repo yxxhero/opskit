@@ -5,11 +5,12 @@ import { withRouter  } from 'react-router-dom'
 import BraftEditor from 'braft-editor'
 import { Select, Form, Input, Button, Row, Col, message } from 'antd';
 import { postAjax } from '../../util/axios';
+import { checkAdmin } from '../../util/util'
 import './essay.css'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-const essaytype = {1: "database", 2: "web", 3: "docker", 4: "security"};
+const essaytype = {1: "database", 2: "web", 3: "docker", 4: "security", 5: 'notice'};
 
 
 @withRouter
@@ -45,7 +46,14 @@ class EssayCreateForm extends Component {
         postAjax('/resource/note', submitData,
           function(response){
             console.log(response);
-            message.success(response.data.msg, 1).then(() => _that.props.history.push('/' + essaytype[values.note_type] + '/'));
+            message.success(response.data.msg, 1).then(() => {
+              if (values.note_type == 5){
+                _that.props.history.push('/')
+              }else{
+                _that.props.history.push('/' + essaytype[values.note_type] + '/')
+              }
+              }
+            );
           }
         )
       }
@@ -115,6 +123,9 @@ class EssayCreateForm extends Component {
                                     <Option value={2}>Web服务</Option>
                                     <Option value={3}>容器</Option>
                                     <Option value={4}>安全</Option>
+                                    { checkAdmin() ?
+                                        <Option value={5}>公告</Option> : null
+                                    }
                                   </Select>
                                 )}
                               </FormItem>

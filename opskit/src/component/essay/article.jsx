@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect  } from 'react-redux';
-import { Button, Card, Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
+import { Divider, Button, Card, Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
 import { withRouter } from 'react-router-dom'
-import { getnotelist } from '../../redux/notes.redux'
+import { getnotelist, getnoticelist } from '../../redux/notes.redux'
 import RecommendIndex from '../recommend/recommend'
 import { IconText } from '../common/common'
 
@@ -12,7 +12,7 @@ const { Meta } = Card;
 @withRouter
 @connect(
   state => state.notes,
-  {getnotelist}
+  {getnotelist, getnoticelist}
 )
 class ArticleIndex extends React.Component {
     state = {
@@ -25,17 +25,19 @@ class ArticleIndex extends React.Component {
 
     componentDidMount () {
       this.props.getnotelist({note_type: this.props.resourceType})
+      this.props.getnoticelist()
     }
 
     render(){
-        const { notelist, loading } = this.props;
+        const { notelist, loading, noticelist, noticeloading } = this.props;
+        const essaytype = this.props.essaytype ? this.props.essaytype : "Web";
         return(
          <div>
         <Row>
           <Col span={11} offset={1}>
          <Breadcrumb style={{ margin: '16px 0' }}> 
            <Breadcrumb.Item>首页</Breadcrumb.Item>
-           <Breadcrumb.Item>Web</Breadcrumb.Item>
+           <Breadcrumb.Item>{essaytype}</Breadcrumb.Item>
          </Breadcrumb>
        </Col>
        <Col span={2} offset={9}>
@@ -43,36 +45,61 @@ class ArticleIndex extends React.Component {
        </Col>
        </Row>
            <Row gutter={32}>
-				<Col span={16} offset={1}>
-        	<List
-            itemLayout="vertical"
-            bordered={true}
-            loading={loading}
-            pagination={{
-              onChange: (page) => {
-                console.log(page);
-              },
-              pageSize: this.state.pagesize,
-              total: notelist.length, 
-              onShowSizeChange: (current, size) => {this.setState({ pagesize: size })},
-              showSizeChanger: true,
-              showQuickJumper: true,
-              showTotal: total => `总共 ${total} 条经验`
-            }}
-            dataSource={notelist}
-            renderItem={item => (
-              <List.Item
-                style={{background: "white"}}
-                key={item.title}
-                actions={[<IconText type="eye-o" text={item.view_count} />, <IconText type="like-o" text="156" />, <IconText type="message" text="2" />]}
-              >
-                <List.Item.Meta
-                  avatar={<Avatar style={{ verticalAlign: 'middle'  }} src={item.useravatar} />}
-                  title={<a href={item.href}>{item.title}</a>}
-                />
-              </List.Item>
-            )}
-          />
+             <Col span={16} offset={1}>
+               <Row>
+                 <Col span={24}>
+                       <List
+                        header="公告"
+                        bordered={true}
+                        loading={noticeloading}
+                        locale={{emptyText: "暂无公告"}}
+                        dataSource={noticelist}
+                        renderItem={item => (
+                          <List.Item
+                            style={{background: "white"}}
+                            key={item.title}
+                            actions={[<IconText type="eye-o" text={item.view_count} />, <IconText type="message" text={item.comment_count} />]}
+                          >
+                            <List.Item.Meta
+                              avatar={<Avatar style={{ verticalAlign: 'middle'  }} src={item.useravatar} />}
+                              title={<a href={item.href}>{item.title}</a>}
+                            />
+                          </List.Item>
+                        )}
+                       />
+                 </Col>
+                 <Divider dashed />
+                 <Col span={24}>
+                   <List
+                    bordered={true}
+                    loading={loading}
+                    pagination={{
+                      onChange: (page) => {
+                        console.log(page);
+                      },
+                      pageSize: this.state.pagesize,
+                      total: notelist.length, 
+                      onShowSizeChange: (current, size) => {this.setState({ pagesize: size })},
+                      showSizeChanger: true,
+                      showQuickJumper: true,
+                      showTotal: total => `总共 ${total} 条经验`
+                    }}
+                    dataSource={notelist}
+                    renderItem={item => (
+                      <List.Item
+                        style={{background: "white"}}
+                        key={item.title}
+                        actions={[<IconText type="eye-o" text={item.view_count} />, <IconText type="message" text={item.comment_count} />]}
+                      >
+                        <List.Item.Meta
+                          avatar={<Avatar style={{ verticalAlign: 'middle'  }} src={item.useravatar} />}
+                          title={<a href={item.href}>{item.title}</a>}
+                        />
+                      </List.Item>
+                    )}
+                  />
+                </Col>
+              </Row>
             </Col>
             <Col span={6}>
 				<Row>
