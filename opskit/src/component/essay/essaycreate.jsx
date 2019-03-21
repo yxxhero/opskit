@@ -69,10 +69,10 @@ class EssayCreateForm extends Component {
 
     const { getFieldDecorator } = this.props.form;
     const controls = [
-            'undo', 'redo', 'separator',
+            'undo', 'redo', 'separator', 'emoji',
             'font-size', 'line-height', 'letter-spacing', 'separator',
             'text-color', 'bold', 'italic', 'underline', 'strike-through', 'separator',
-            'superscript', 'subscript', 'remove-styles', 'emoji',  'separator', 'text-indent', 'text-align', 'separator',
+            'superscript', 'subscript', 'remove-styles', 'separator', 'text-indent', 'text-align', 'separator',
             'headings', 'list-ul', 'list-ol', 'blockquote', 'code', 'separator',
             'link', 'separator', 'hr', 'separator',
             'media', 'separator',
