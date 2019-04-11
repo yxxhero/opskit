@@ -3,6 +3,7 @@ import { connect  } from 'react-redux';
 import { List, Avatar } from 'antd';
 import { getrecommendlist } from '../../redux/recommend.redux'
 import { IconText } from '../common/common'
+import { cutstr } from '../../util/util'
 
 @connect(
   state => state.recommend,
@@ -27,7 +28,7 @@ class RecommendIndex extends React.Component {
 			    >
                   <List.Item.Meta
                     avatar={<Avatar src={item.useravatar} />}
-                    title={<a href={item.href}>{item.title}</a>}
+                    title={<a href={item.href}>{cutstr(item.title, 9)}</a>}
                   />
                   <IconText type="eye-o" text={item.view_count} />
                 </List.Item>
