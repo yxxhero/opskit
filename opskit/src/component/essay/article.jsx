@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect  } from 'react-redux';
-import { Divider, Button, Card, Row, Col, Breadcrumb, List, Avatar, Icon } from 'antd';
-import { withRouter } from 'react-router-dom'
+import { Divider, Button, Row, Col, Breadcrumb, List, Avatar } from 'antd';
+import { withRouter, Link } from 'react-router-dom'
 import { getnotelist, getnoticelist } from '../../redux/notes.redux'
 import RecommendIndex from '../recommend/recommend'
 import { IconText } from '../common/common'
 
-
-const { Meta } = Card;
 
 @withRouter
 @connect(
@@ -30,14 +28,14 @@ class ArticleIndex extends React.Component {
 
     render(){
         const { notelist, loading, noticelist, noticeloading } = this.props;
-        const essaytype = this.props.essaytype ? this.props.essaytype : "Web";
+        const resourceType = this.props.resourceType ? this.props.resourceType : "Web";
         return(
          <div>
         <Row>
           <Col span={11} offset={1}>
          <Breadcrumb style={{ margin: '16px 0' }}> 
-           <Breadcrumb.Item>首页</Breadcrumb.Item>
-           <Breadcrumb.Item>{essaytype}</Breadcrumb.Item>
+           <Breadcrumb.Item><Link to="/">首页</Link></Breadcrumb.Item>
+           <Breadcrumb.Item>{resourceType}</Breadcrumb.Item>
          </Breadcrumb>
        </Col>
        <Col span={2} offset={9}>
@@ -102,22 +100,6 @@ class ArticleIndex extends React.Component {
               </Row>
             </Col>
             <Col span={6}>
-				<Row>
-                 <Col span={24}>
-                <Card
-                  style={{ width: "100%" }}
-                  cover={<img alt="example" src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png" />}
-                  actions={[<Icon type="setting" />, <Icon type="edit" />, <Icon type="ellipsis" />]}
-                >
-                  <Meta
-                    avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                    title="web资深运维"
-                    description="web就是我的使命"
-                  />
-                </Card>
-                 </Col>
-				</Row>
-				<br />
 				<Row>
                  <Col span={24}>
                    <RecommendIndex />

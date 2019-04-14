@@ -87,7 +87,7 @@ class Center extends PureComponent {
                 </div>
             </Card>
           </Col>
-          <Col span={16}>
+          <Col span={15}>
             <Card
               className='tabsCard'
               bordered={false}

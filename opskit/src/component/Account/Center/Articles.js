@@ -74,7 +74,7 @@ class Center extends PureComponent {
             key={item.id}
             actions={[
               <IconText type="eye-o" text={item.view_count} />,
-              <IconText type="message" text={10} />,
+              <IconText type="message" text={item.comment_count} />,
               <Icon type="delete" onClick={() => this.handleessaydelete(item.id)} />,
               <Icon type="edit" onClick={() => this.handleessayedit(item.id)}/>
             ]}

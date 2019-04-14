@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Empty, message, Avatar, Spin, Row, Col, Card, List, Icon} from 'antd';
+import {Skeleton, Empty, message, Avatar, Spin, Row, Col, Card, List, Icon, PageHeader} from 'antd';
 import { withRouter  } from 'react-router-dom'
 import { connect  } from 'react-redux';
 import "video-react/dist/video-react.css";
@@ -9,17 +9,31 @@ import { getQueryString } from '../../util/searchparse_helper';
 import { postAjax } from '../../util/axios';
 import './articleview.css'
 import { getnoteinfo, getcommentlist } from '../../redux/note.redux'
+import { getnoteuserinfo } from '../../redux/noteuserinfo.redux'
 import RecommendIndex from '../recommend/recommend'
 import CommentForm from '../comment/comment'
+
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
+const { Meta  } = Card;
+
+const UserRole = {
+  'Admin': '管理员',
+  'Common': '普通账户',
+  'Vip': 'Vip会员'
+}
 
 
 @withRouter
 @connect(
-  state => state.note,
-  {getnoteinfo, getcommentlist}
+  state => ({...state.note, ...state.noteuserinfo}),
+  {getnoteinfo, getcommentlist, getnoteuserinfo}
 )
 class ArticleView extends Component {
+    constructor(props) {
+      super(props);
+      // create a ref to store the textInput DOM element
+      this.commentInput = React.createRef();
+    } 
     state = {
           data: [],
           loading: false,
@@ -32,12 +46,14 @@ class ArticleView extends Component {
         message.error("评论内容不能为空");
         return;
       }
+      const _that = this;
       postAjax('/resource/comments', {
         id: getQueryString(this.props.location.search).note_id,
         content: value
       },
           function(response){
-            message.success("评论成功");
+            message.success("评论成功,等待审核通过后展示");
+            _that.commentInput.current.setState({value: ""});
           }
         )
 
@@ -63,6 +79,7 @@ class ArticleView extends Component {
       if(getQueryString(this.props.location.search).note_id){
         this.props.getnoteinfo({id: getQueryString(this.props.location.search).note_id});
         this.props.getcommentlist({note_id: getQueryString(this.props.location.search).note_id})
+        this.props.getnoteuserinfo(getQueryString(this.props.location.search).note_id);
       }else{
         message.error("缺少文章id");
       };
@@ -132,14 +149,9 @@ class ArticleView extends Component {
                          title={
                            <div>
                            <Row gutter={48}>
-                             <Col span={1}>
-                               <Avatar style={{width: '45px', height: '45px', lineHeight: '45px'}} shape="square" size="large" src={this.props.noteinfo.useravatar} /> 
-                             </Col>
-                             <Col span={8}>
-                             <div>
+                             <Col span={9}>
+                               <Avatar style={{width: '30px', height: '30px', lineHeight: '45px'}} shape="square" size="small" src={this.props.noteinfo.useravatar} /> 
                                <span style={{display: 'block'}}>{this.props.noteinfo.username}</span>
-                               <span>{this.props.noteinfo.title}</span>
-                             </div>
                              </Col>
                              <Col span={11}>
                              <div>
@@ -158,7 +170,11 @@ class ArticleView extends Component {
                          }
                          bodyStyle={{padding: '0px'}}
                        >
-                         { this.props.noteinfo.content ? <div style={{margin: '10px'}}  dangerouslySetInnerHTML = {{__html: this.props.noteinfo.content }} ></div> : <Empty />}
+                         { this.props.noteinfo.content ? 
+                         <div>
+                           <PageHeader style={{padding: '10px', borderTop: '1px solid #000', borderBottom: '1px solid #000'}} title={this.props.noteinfo.title} backIcon={false} />
+                           <div style={{margin: '10px'}}  dangerouslySetInnerHTML = {{__html: this.props.noteinfo.content }} ></div>
+                         </div> : <Empty />}
                         </Card>
                      </Col>
                    </Row>
@@ -166,6 +182,7 @@ class ArticleView extends Component {
                    <Row>
                      <Col span={24}>
                        <CommentForm 
+                         ref={this.commentInput}
                          handlePageChange={this.handlePageChange}
                          handlePageSizeChange={this.handlePageSizeChange}
                          commenttotal={this.props.commenttotal}
@@ -179,9 +196,25 @@ class ArticleView extends Component {
                 <Col span={6}>
                   <Row>
                     <Col span={24}>
+                             <Card
+                               actions={[<div><Icon style={{marginRight: '10px'}} type="schedule" />{this.props.notecount}</div>, <div><Icon style={{marginRight: '10px'}} type="user" />{UserRole[this.props.userrole]}</div>]}
+                             >
+                               <Skeleton loading={this.props.noteuserinfoloading} avatar active>
+                                 <Meta
+                                   avatar={<Avatar size="large" src={this.props.useravatar} />}
+                                   description={this.props.createtime}
+                                   title={this.props.username}
+                                 />
+                               </Skeleton>
+                             </Card> 
+                    </Col>
+                  </Row>
+                   <br />
+                  <Row>
+                    <Col span={24}>
                   <Card
                     size="small"
-                    title="视频系列"
+                    title="文章系列"
                     bodyStyle={{padding: '0px'}}
                   >
                   <div className="demo-infinite-container">

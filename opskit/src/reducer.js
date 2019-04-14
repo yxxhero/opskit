@@ -3,6 +3,7 @@ import { user } from './redux/user.redux'
 import { notes } from './redux/notes.redux'
 import { usernotes } from './redux/usernotes.redux'
 import { userinfo } from './redux/userinfo.redux'
+import { noteuserinfo } from './redux/noteuserinfo.redux'
 import { adminnotes } from './redux/adminnote.redux'
 import { adminusers } from './redux/adminuser.redux'
 import { admincomments } from './redux/admincomment.redux'
@@ -18,6 +19,7 @@ export default combineReducers({
     adminnotes,
     usernotes,
     userinfo,
+    noteuserinfo,
     note,
     recommend
 })
