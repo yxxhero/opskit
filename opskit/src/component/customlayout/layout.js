@@ -23,12 +23,12 @@ class CustomLayout extends Component {
        <TopTips  />
        <Header>
          <Row>
-           <Col span={4}>
+           <Col span={3}>
            <div className="logo">
-		  	<img src={logo} alt="" style={{width: 210}}/>
+		  	<img src={logo} alt="" style={{width: 150}}/>
            </div>
            </Col>
-           <Col span={14}>
+           <Col span={15}>
 		  	  <MenuList />
             </Col>
            <Col span={6}>
