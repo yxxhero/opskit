@@ -9,11 +9,42 @@ export function replaceAll(s,f,e){
     return s.replace(reg,e); 
 }
 
+export function strlength(str) {  
+  let len = 0;  
+  for (let i=0; i < str.length; i++) {  
+    if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {  
+       len += 2;  
+     } else {  
+       len ++;  
+     }  
+   }  
+  return len;  
+}
+
 export function cutstr( content,len=30){
-  if (content.length <= len){
+  
+  if (strlength(content) <= len){
     return content;
   }
-  return content.slice(0, len) + '...'; 
+  let content_str ="";
+  let limit = 0
+  for (let i=0; i < content.length; i++) {  
+    if (content.charCodeAt(i)>127 || content.charCodeAt(i)==94) {  
+       limit += 2;  
+      if (limit <= len){
+         content_str += content[i]
+      }else{
+        return content_str + '...';
+      } 
+     } else {  
+       limit ++;  
+       if (limit <= len){
+          content_str += content[i]
+       }else{
+         return content_str + '...';
+       } 
+     }  
+   }  
 }
 
 export function checkSession(){

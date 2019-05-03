@@ -28,7 +28,7 @@ class RecommendIndex extends React.Component {
 			    >
                   <List.Item.Meta
                     avatar={<Avatar src={item.useravatar} />}
-                    title={<a href={item.href}>{cutstr(item.title, 9)}</a>}
+                    title={<a href={item.href}>{cutstr(item.title, 22)}</a>}
                   />
                   <IconText type="eye-o" text={item.view_count} />
                 </List.Item>

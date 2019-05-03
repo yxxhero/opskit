@@ -10,7 +10,7 @@ import './essay.css'
 
 const FormItem = Form.Item;
 const Option = Select.Option;
-const essaytype = {1: "database", 2: "web", 3: "docker", 4: "security", 5: 'notice'};
+const essaytype = {1: "database", 2: "web", 3: "docker", 4: "security", 5: 'notice', 6: 'hadoop'};
 
 
 @withRouter
@@ -123,6 +123,7 @@ class EssayCreateForm extends Component {
                                     <Option value={2}>Web服务</Option>
                                     <Option value={3}>容器</Option>
                                     <Option value={4}>安全</Option>
+                                    <Option value={6}>大数据</Option>
                                     { checkAdmin() ?
                                         <Option value={5}>公告</Option> : null
                                     }

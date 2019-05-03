@@ -5,6 +5,7 @@ import LoginPage from './container/login/login'
 import RegisterPage from './container/register/register'
 import { WebPage } from './container/web/web'
 import { DockerPage } from './container/docker/docker'
+import { HadoopPage } from './container/hadoop/hadoop'
 import { DatabasePage } from './container/database/database'
 import { SecurityPage } from './container/security/security'
 import { EssayCreatePage } from './container/essay/essaycreate'
@@ -36,6 +37,7 @@ class App extends Component {
              <Route path="/database/" exact component={DatabasePage}></Route>
              <Route path="/docker/" exact component={DockerPage}></Route>
              <Route path="/security/" exact component={SecurityPage}></Route>
+             <Route path="/hadoop/" exact component={HadoopPage}></Route>
              <Route path="/essay/add/" exact render={() => isLogin(<EssayCreatePage />)}></Route>
              <Route path="/essay/view/" exact component={ArticleViewPage}></Route>
              <Route path="/essay/edit/" exact component={EssayEditPage}></Route>
