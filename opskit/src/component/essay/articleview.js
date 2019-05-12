@@ -54,6 +54,7 @@ class ArticleView extends Component {
           function(response){
             message.success("评论成功,等待审核通过后展示");
             _that.commentInput.current.setState({value: ""});
+            _that.props.getcommentlist({note_id: getQueryString(_that.props.location.search).note_id})
           }
         )
 

@@ -1,15 +1,18 @@
 import React, { PureComponent } from 'react';
 import {withRouter } from 'react-router-dom'
-import { Breadcrumb, Card, Row, Col, Icon } from 'antd';
+import { Breadcrumb, Input, Card, Row, Col, Icon } from 'antd';
 import { connect  } from 'react-redux';
 import GridContent from '@/component/PageHeaderWrapper/GridContent';
 import { getuserinfo } from '../../../redux/userinfo.redux'
+import { getusernotelist } from '../../../redux/usernotes.redux'
 import './Center.less';
+
+const Search = Input.Search;
 
 @withRouter
 @connect(
   state => state.userinfo,
-  {getuserinfo}
+  {getuserinfo, getusernotelist}
 )
 class Center extends PureComponent {
   state = {
@@ -19,6 +22,10 @@ class Center extends PureComponent {
 
   componentDidMount() {
      this.props.getuserinfo();
+  }
+
+  handleArticleSearch = (value) => {
+    this.props.getusernotelist({keyword: value});
   }
 
   onTabChange = key => {
@@ -33,7 +40,7 @@ class Center extends PureComponent {
 
   render() {
     const {
-      children, username, userrole, useremail, userauditing, userinfoloading, useravatar, createtime, notecount
+      children, username, userrole, useremail, userauditing, userinfoloading, useravatar, createtime, notecount, userdescription
     } = this.props;
 
     const operationTabList = [
@@ -64,7 +71,7 @@ class Center extends PureComponent {
                   <div className='avatarHolder'>
                     <img alt="" src={useravatar} />
                     <div className='name'>{username}</div>
-                    <div>自我投资</div>
+                    <div>{userdescription}</div>
                   </div>
                   <div>
                     <p>
@@ -91,7 +98,15 @@ class Center extends PureComponent {
             <Card
               className='tabsCard'
               bordered={false}
+              title="用户内容管理"
               tabList={operationTabList}
+              extra={
+                  <Search
+                    placeholder="关键字搜索(回车搜索)"
+                    onSearch={this.handleArticleSearch}
+                    style={{ width: 200 }}
+                  />
+              }
               activeTabKey={this.state.activeKey}
               onTabChange={this.onTabChange}
             >
