@@ -17,6 +17,7 @@ const confirm = Modal.confirm;
 class Center extends PureComponent {
 
   state = {
+    page: 1,
     pagesize: 10
   };
 
@@ -24,12 +25,24 @@ class Center extends PureComponent {
     this.props.getusernotelist();
   }
 
-  handlePageChange = (page, pagesize) => {
-    this.props.getusernotelist({page, page_size: pagesize});
+  handlePageChange = (current, pagesize) => {
+    this.props.getusernotelist({current, page_size: pagesize});
+    this.setState(
+      { 
+        'pagesize': pagesize,
+        'page': current
+      }      
+    )
   }
 
   handleShowSizeChange = (current, size) => {
     this.props.getusernotelist({page: current, page_size:size});
+    this.setState(
+      { 
+        'pagesize': size,
+        'page': current 
+      }      
+    )
   }
 
   handleessaydelete = (id) => {
@@ -61,6 +74,7 @@ class Center extends PureComponent {
         dataSource={usernotelist}
         loading={usernotesloading}
         pagination={{
+          current: this.state.page,
           onChange: this.handlePageChange, 
           pageSize: this.state.pagesize,
           total: usernotetotal, 
