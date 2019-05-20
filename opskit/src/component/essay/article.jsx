@@ -4,6 +4,7 @@ import { Divider, Button, Row, Col, Breadcrumb, List, Avatar } from 'antd';
 import { withRouter, Link } from 'react-router-dom'
 import { getnotelist, getnoticelist } from '../../redux/notes.redux'
 import RecommendIndex from '../recommend/recommend'
+import SpreadIndex from '../carousel/carousel'
 import { IconText } from '../common/common'
 
 
@@ -101,10 +102,15 @@ class ArticleIndex extends React.Component {
             </Col>
             <Col span={6}>
 				<Row>
-                 <Col span={24}>
-                   <RecommendIndex />
-             </Col>
-			</Row>
+                    <Col span={24}>
+                      <SpreadIndex />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col span={24}>
+                      <RecommendIndex />
+                    </Col>
+			    </Row>
             </Col>
           </Row>
          </div>

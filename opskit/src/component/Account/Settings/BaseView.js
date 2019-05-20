@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Form, Input, Upload, Button, Skeleton, message } from 'antd';
 import { connect  } from 'react-redux';
 import { putAjax } from '../../../util/axios';
+import { uploadProps } from '../../../util/tools_helper';
 import { getuserinfo } from '../../../redux/userinfo.redux'
 import './BaseView.less';
 
@@ -16,7 +17,9 @@ const AvatarView = ({ avatar }) => (
     <div className='avatar'>
       <img src={avatar} alt="avatar" />
     </div>
-    <Upload fileList={[]}>
+    <Upload 
+       {...uploadProps}
+    >
       <div className='button_view'>
         <Button icon="upload">
           更换头像

@@ -11,6 +11,7 @@ import './articleview.css'
 import { getnoteinfo, getcommentlist } from '../../redux/note.redux'
 import { getnoteuserinfo } from '../../redux/noteuserinfo.redux'
 import RecommendIndex from '../recommend/recommend'
+import SpreadIndex from '../carousel/carousel'
 import CommentForm from '../comment/comment'
 
 const fakeDataUrl = 'https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo';
@@ -195,6 +196,11 @@ class ArticleView extends Component {
                    </Row>
                 </Col>
                 <Col span={6}>
+				<Row>
+                    <Col span={24}>
+                      <SpreadIndex />
+                    </Col>
+                </Row>
                   <Row>
                     <Col span={24}>
                              <Card
