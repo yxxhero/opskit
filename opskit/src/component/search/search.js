@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Icon, message, Form, List, Avatar, Carousel, Card, Col, Row, Input, Breadcrumb } from 'antd';
 import { connect  } from 'react-redux';
-import { getsearchnotelist } from '../../redux/search.redux'
+import { clearsearchnotelist, getsearchnotelist } from '../../redux/search.redux'
 
 const Search = Input.Search;
 
 @Form.create()
 @connect(
   state => state.searchnotes,
-  {getsearchnotelist}
+  {getsearchnotelist, clearsearchnotelist}
 )
 class SearchIndex extends Component {
 
@@ -17,7 +17,8 @@ class SearchIndex extends Component {
     }
 
     componentDidMount () {
-		console.log(this.props)	
+		console.log(this.props);	
+        this.props.clearsearchnotelist();
 	} 
 
     handleSearch = (value) => {

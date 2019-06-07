@@ -1,6 +1,7 @@
 import { getAjax} from '../util/axios';
 
 const GETSEARCHNOTELIST = 'GETSEARCHNOTELIST'
+const CLEARSEARCHNOTELIST = 'CLEARSEARCHNOTELIST'
 const STARTSEARCHNOTELOADING = 'STARTSEARCHNOTELOADING'
 const STOPSEARCHNOTELOADING = 'STOPSEARCHNOTELOADING'
 
@@ -19,6 +20,8 @@ export function searchnotes(state=initState, action){
 			return {...state, searchloading: true}
 		case STOPSEARCHNOTELOADING:
 			return {...state, searchloading: false}
+		case CLEARSEARCHNOTELIST:
+			return {...initState}
 		default:
 			return state
 	}
@@ -26,6 +29,10 @@ export function searchnotes(state=initState, action){
 
 export function getSearchNoteList(payload){
 	return { type: GETSEARCHNOTELIST, payload }
+}
+
+export function clearsearchnotelist(){
+	return { type: CLEARSEARCHNOTELIST }
 }
 
 export function startSearchNoteLoading(){

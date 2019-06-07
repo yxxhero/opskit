@@ -204,7 +204,7 @@ class ArticleView extends Component {
                   <Row>
                     <Col span={24}>
                              <Card
-                               actions={[<div><Icon style={{marginRight: '10px'}} type="schedule" />{this.props.notecount}</div>, <div><Icon style={{marginRight: '10px'}} type="user" />{UserRole[this.props.userrole]}</div>]}
+                               actions={[<div style={{marginRight: '10px'}}>文章: {this.props.notecount}</div>, <div style={{marginRight: '10px'}}>角色: {UserRole[this.props.userrole]}</div>]}
                              >
                                <Skeleton loading={this.props.noteuserinfoloading} avatar active>
                                  <Meta
