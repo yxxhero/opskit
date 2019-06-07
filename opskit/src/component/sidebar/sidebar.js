@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect  } from 'react-redux';
 import { logout } from '../../redux/user.redux'
-import { Menu, Form, Button, Dropdown, Icon } from "antd"
+import { Badge, Menu, Form, Button, Dropdown, Icon, Popover } from "antd"
 import { withRouter } from 'react-router-dom'
 import { checkSession } from '../../util/util'
 
@@ -45,10 +45,17 @@ class SideBar extends Component {
     if (checkSession()){
       return (
 	    		 <Form layout="inline" style={{margin: "12px auto", float: "right"}}>
+                    <FormItem style={{marginRight: 0}}>
+                        <Popover content="功能待上线" title="消息通知">
+                            <Badge dot>
+                              <Icon type="bell" style={{color: "white", fontSize: 18}}/>
+                            </Badge>
+                        </Popover>
+                    </FormItem>
             		<FormItem style={{marginLeft: 16, marginRight: 0}}>
                       <Dropdown overlay={menu}>
                         <a className="ant-dropdown-link" style={{color: "white", fontSize: "15px"}}>
-                          欢迎您! {sessionStorage.getItem("username")} <Icon type="down" />
+                           欢迎您! {sessionStorage.getItem("username")} <Icon type="down" />
                         </a>
                       </Dropdown>
             		</FormItem>  
