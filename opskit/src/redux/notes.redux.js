@@ -12,6 +12,7 @@ const initState={
 	noticelist:[],
     loading: false,
     noticeloading: false,
+    note_total: 0,
 	content:'',
     raw_content:''
 }
@@ -20,7 +21,7 @@ const initState={
 export function notes(state=initState, action){
 	switch(action.type){
 		case GETNOTELIST:
-			return {...state, notelist: action.payload}
+			return {...state, notelist: action.payload.data, note_total: action.payload.total}
 		case GETNOTICELIST:
 			return {...state, noticelist: action.payload}
 		case STARTNOTELOADING:
@@ -68,7 +69,7 @@ export function getnotelist(noteargs){
         function(response){
             console.log(response);
             dispatch(stopNoteLoading());
-            dispatch(getNoteList(response.data.data));
+            dispatch(getNoteList(response.data));
         }
       )
 	}

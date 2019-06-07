@@ -31,7 +31,7 @@ class SearchIndex extends Component {
             keyword: value
           })
       } else {
-        message.error("关键词不能为空");
+        message.info("关键词不能为空");
       }
     }
 
@@ -54,7 +54,7 @@ class SearchIndex extends Component {
 	    return (
           <div>
          <Row>
-         <Col span={22} offset={1}>
+         <Col span={20} offset={2}>
          <Breadcrumb style={{ margin: '16px 0' }}> 
            <Breadcrumb.Item>首页</Breadcrumb.Item>
            <Breadcrumb.Item>搜索</Breadcrumb.Item>

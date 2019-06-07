@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import Articles from '@/component/Account/Center/Articles' 
 import {withRouter } from 'react-router-dom'
 import { Breadcrumb, Input, Card, Row, Col, Icon } from 'antd';
 import { connect  } from 'react-redux';
@@ -11,13 +12,16 @@ const Search = Input.Search;
 
 @withRouter
 @connect(
-  state => state.userinfo,
+  state => {
+    return {...state.userinfo, ...state.usernotes}
+  },
   {getuserinfo, getusernotelist}
 )
 class Center extends PureComponent {
   state = {
     inputValue: '',
-    activeKey: 'articles'
+    activeKey: 'articles',
+    keyword: ''
   };
 
   componentDidMount() {
@@ -25,9 +29,14 @@ class Center extends PureComponent {
   }
 
   handleArticleSearch = (value) => {
+    this.setState({keyword: value});
     this.props.getusernotelist({keyword: value});
   }
 
+  handleKeywordChange = (e) => {
+    console.log(e.target.value);
+    this.setState({keyword: e.target.value});
+  }
   onTabChange = key => {
     switch (key) {
       case 'articles':
@@ -40,7 +49,7 @@ class Center extends PureComponent {
 
   render() {
     const {
-      children, username, userrole, useremail, userauditing, userinfoloading, useravatar, createtime, notecount, userdescription
+      usernotetotal, username, userrole, useremail, userauditing, userinfoloading, useravatar, createtime, notecount, userdescription
     } = this.props;
 
     const operationTabList = [
@@ -48,7 +57,7 @@ class Center extends PureComponent {
         key: 'articles',
         tab: (
           <span>
-            文章 <span style={{ fontSize: 14 }}>({notecount})</span>
+            文章 <span style={{ fontSize: 14 }}>({usernotetotal ? usernotetotal : notecount})</span>
           </span>
         ),
       }
@@ -102,15 +111,17 @@ class Center extends PureComponent {
               tabList={operationTabList}
               extra={
                   <Search
+                    ref={(search) => {this.search = search;}}
                     placeholder="关键字搜索(回车搜索)"
                     onSearch={this.handleArticleSearch}
+                    onChange={this.handleKeywordChange}
                     style={{ width: 200 }}
                   />
               }
               activeTabKey={this.state.activeKey}
               onTabChange={this.onTabChange}
             >
-              {children}
+              <Articles center={this}/> 
             </Card>
           </Col>
         </Row>

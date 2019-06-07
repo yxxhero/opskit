@@ -15,11 +15,32 @@ import { IconText } from '../common/common'
 )
 class ArticleIndex extends React.Component {
     state = {
+      page: 1,
       pagesize: 10
     };
 
     handleEssayClick = () => {
       this.props.history.push("/essay/add/");
+    }
+
+    handlePageChange = (current, pagesize) => {
+      this.props.getnotelist({note_type: this.props.resourceType, page: current, page_size: pagesize});
+      this.setState(
+        { 
+          'pagesize': pagesize,
+          'page': current
+        }      
+      )
+    }
+
+    handleShowSizeChange = (current, size) => {
+      this.props.getnotelist({note_type: this.props.resourceType, page: current, page_size: size});
+      this.setState(
+        { 
+          'pagesize': size,
+          'page': current 
+        }      
+      )
     }
 
     componentDidMount () {
@@ -28,7 +49,7 @@ class ArticleIndex extends React.Component {
     }
 
     render(){
-        const { notelist, loading, noticelist, noticeloading } = this.props;
+        const { note_total, notelist, loading, noticelist, noticeloading } = this.props;
         const resourceType = this.props.resourceType ? this.props.resourceType : "Web";
         return(
          <div>
@@ -73,12 +94,10 @@ class ArticleIndex extends React.Component {
                     bordered={true}
                     loading={loading}
                     pagination={{
-                      onChange: (page) => {
-                        console.log(page);
-                      },
+                      onChange: this.handlePageChange,
                       pageSize: this.state.pagesize,
-                      total: notelist.length, 
-                      onShowSizeChange: (current, size) => {this.setState({ pagesize: size })},
+                      total: note_total, 
+                      onShowSizeChange: this.handleShowSizeChange,
                       showSizeChanger: true,
                       showQuickJumper: true,
                       showTotal: total => `总共 ${total} 条经验`

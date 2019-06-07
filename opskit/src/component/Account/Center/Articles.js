@@ -23,10 +23,11 @@ class Center extends PureComponent {
 
   componentDidMount () {
     this.props.getusernotelist();
+    console.log(this.props.center);
   }
 
   handlePageChange = (current, pagesize) => {
-    this.props.getusernotelist({current, page_size: pagesize});
+    this.props.getusernotelist({page: current, page_size: pagesize, keyword: this.props.center.state.keyword});
     this.setState(
       { 
         'pagesize': pagesize,
@@ -36,7 +37,7 @@ class Center extends PureComponent {
   }
 
   handleShowSizeChange = (current, size) => {
-    this.props.getusernotelist({page: current, page_size:size});
+    this.props.getusernotelist({page: current, page_size:size, keyword: this.props.center.state.keywor});
     this.setState(
       { 
         'pagesize': size,
