@@ -15,4 +15,4 @@ class ArticleViewPage extends Component {
 }
 
 
-export { ArticleViewPage }
+export default ArticleViewPage;

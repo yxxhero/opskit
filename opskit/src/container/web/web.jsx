@@ -15,4 +15,4 @@ class WebPage extends Component {
 }
 
 
-export { WebPage }
+export default WebPage;

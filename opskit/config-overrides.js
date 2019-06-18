@@ -14,7 +14,6 @@ function overrideEslintOptions(options) {
 
 module.exports = function override(config, env) {
    config = injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config);
-   config = injectBabelPlugin(['import', { libraryName: 'antd', style: true }], config);
    config = rewireLess.withLoaderOptions({
      javascriptEnabled: true
    })(config, env); 

@@ -15,4 +15,4 @@ class DatabasePage extends Component {
 }
 
 
-export { DatabasePage }
+export default DatabasePage;

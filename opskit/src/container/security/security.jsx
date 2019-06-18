@@ -15,4 +15,4 @@ class SecurityPage extends Component {
 }
 
 
-export { SecurityPage }
+export default SecurityPage; 

@@ -15,4 +15,4 @@ class EssayCreatePage extends Component {
 }
 
 
-export { EssayCreatePage }
+export default EssayCreatePage; 

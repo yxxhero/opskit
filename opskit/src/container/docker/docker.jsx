@@ -15,4 +15,4 @@ class DockerPage extends Component {
 }
 
 
-export { DockerPage }
+export default DockerPage;

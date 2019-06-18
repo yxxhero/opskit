@@ -15,4 +15,4 @@ class AccountCenter extends Component {
 }
 
 
-export { AccountCenter }
+export default AccountCenter;

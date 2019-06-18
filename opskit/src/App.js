@@ -1,24 +1,90 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { SearchPage } from './container/searchpage/searchpage'
-import LoginPage from './container/login/login'
-import RegisterPage from './container/register/register'
-import { WebPage } from './container/web/web'
-import { DockerPage } from './container/docker/docker'
-import { HadoopPage } from './container/hadoop/hadoop'
-import { DatabasePage } from './container/database/database'
-import { SecurityPage } from './container/security/security'
-import { EssayCreatePage } from './container/essay/essaycreate'
-import { EssayEditPage } from './container/essay/essayedit'
-import { ArticleViewPage } from './container/essay/articleview'
-import { VideoPage } from './container/video/video'
-import { VideoPlayPage } from './container/videoplay/videoplay'
-import { AccountCenter } from './container/account/center'
-import { AccountSettingBase } from './container/account/baseinfo'
-import { AdminUserPage } from './container/admin/user'
-import { AdminNotePage } from './container/admin/essay'
-import { AdminCommentPage } from './container/admin/comment'
+import Loadable from "@/component/loadable";
 import { isLogin } from './util/util'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+
+const WebPage  = Loadable({
+    loader: () => import('./container/web/web'),
+});
+
+const DockerPage  = Loadable({
+    loader: () => import('./container/docker/docker'),
+});
+
+const HadoopPage  = Loadable({
+    loader: () => import('./container/hadoop/hadoop'),
+});
+
+const DatabasePage  = Loadable({
+    loader: () => import('./container/database/database'),
+});
+
+const SecurityPage  = Loadable({
+    loader: () => import('./container/security/security'),
+});
+
+const EssayEditPage = Loadable({
+    loader: () => import('./container/essay/essayedit'),
+});
+
+const EssayCreatePage = Loadable({
+    loader: () => import('./container/essay/essaycreate'),
+});
+
+const ArticleViewPage = Loadable({
+    loader: () => import('./container/essay/articleview'),
+});
+
+const VideoPage = Loadable({
+    loader: () => import('./container/video/video'),
+
+});
+
+const VideoPlayPage = Loadable({
+    loader: () => import('./container/videoplay/videoplay'),
+
+});
+
+const AccountCenter = Loadable({
+    loader: () => import('./container/account/center'),
+
+});
+
+const AccountSettingBase = Loadable({
+    loader: () => import('./container/account/baseinfo'),
+
+});
+
+const AdminUserPage = Loadable({
+    loader: () => import('./container/admin/user'),
+
+});
+
+const AdminNotePage = Loadable({
+    loader: () => import('./container/admin/essay'),
+
+});
+
+const AdminCommentPage = Loadable({
+    loader: () => import('./container/admin/comment'),
+
+});
+
+const SearchPage = Loadable({
+    loader: () => import('./container/searchpage/searchpage'),
+
+});
+
+const LoginPage = Loadable({
+    loader: () => import('./container/login/login'),
+
+});
+
+const RegisterPage = Loadable({
+    loader: () => import('./container/register/register'),
+
+});
+
 
 
 class App extends Component {

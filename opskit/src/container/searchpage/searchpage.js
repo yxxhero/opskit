@@ -15,4 +15,4 @@ class SearchPage extends Component {
 }
 
 
-export { SearchPage }
+export default SearchPage;

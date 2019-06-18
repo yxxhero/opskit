@@ -15,4 +15,4 @@ class VideoPlayPage extends Component {
 }
 
 
-export { VideoPlayPage }
+export default VideoPlayPage;

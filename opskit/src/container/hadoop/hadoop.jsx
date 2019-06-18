@@ -15,4 +15,4 @@ class HadoopPage extends Component {
 }
 
 
-export { HadoopPage }
+export default HadoopPage;

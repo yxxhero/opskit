@@ -15,4 +15,4 @@ class EssayEditPage extends Component {
 }
 
 
-export { EssayEditPage }
+export default EssayEditPage; 

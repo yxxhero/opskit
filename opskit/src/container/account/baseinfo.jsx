@@ -16,4 +16,4 @@ class AccountSettingBase extends Component {
 }
 
 
-export { AccountSettingBase }
+export default AccountSettingBase;

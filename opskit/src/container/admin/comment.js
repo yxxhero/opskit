@@ -15,4 +15,4 @@ class AdminCommentPage extends Component {
 }
 
 
-export { AdminCommentPage }
+export default AdminCommentPage;

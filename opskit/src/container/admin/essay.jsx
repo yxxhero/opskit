@@ -15,4 +15,4 @@ class AdminNotePage extends Component {
 }
 
 
-export { AdminNotePage }
+export default AdminNotePage;

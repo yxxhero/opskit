@@ -15,4 +15,4 @@ class VideoPage extends Component {
 }
 
 
-export { VideoPage }
+export default VideoPage;
