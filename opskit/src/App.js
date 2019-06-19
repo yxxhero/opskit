@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Loadable from "@/component/loadable";
 import { isLogin } from './util/util'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import EssayEditPage from './container/essay/essayedit';
+import EssayCreatePage from './container/essay/essaycreate';
+import ArticleViewPage from './container/essay/articleview'
 
 const WebPage  = Loadable({
     loader: () => import('./container/web/web'),
@@ -23,17 +26,6 @@ const SecurityPage  = Loadable({
     loader: () => import('./container/security/security'),
 });
 
-const EssayEditPage = Loadable({
-    loader: () => import('./container/essay/essayedit'),
-});
-
-const EssayCreatePage = Loadable({
-    loader: () => import('./container/essay/essaycreate'),
-});
-
-const ArticleViewPage = Loadable({
-    loader: () => import('./container/essay/articleview'),
-});
 
 const VideoPage = Loadable({
     loader: () => import('./container/video/video'),

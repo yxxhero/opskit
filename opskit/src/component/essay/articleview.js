@@ -85,7 +85,6 @@ class ArticleView extends Component {
       }else{
         message.error("缺少文章id");
       };
-        this.forceUpdate();
         this.fetchData((res) => {
           this.setState({
                     data: res.results,
