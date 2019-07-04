@@ -4,6 +4,7 @@ import { logout } from '../../redux/user.redux'
 import { Badge, Menu, Form, Button, Dropdown, Icon, Popover } from "antd"
 import { withRouter } from 'react-router-dom'
 import { checkSession } from '../../util/util'
+import MessageList from '../message/message';
 
 const FormItem = Form.Item;
 
@@ -46,7 +47,7 @@ class SideBar extends Component {
       return (
 	    		 <Form layout="inline" style={{margin: "12px auto", float: "right"}}>
                     <FormItem style={{marginRight: 0}}>
-                        <Popover content="功能待上线" title="消息通知">
+                      <Popover content={<MessageList/>} title="消息通知"  placement="bottom">
                             <Badge dot>
                               <Icon type="bell" style={{color: "white", fontSize: 18}}/>
                             </Badge>

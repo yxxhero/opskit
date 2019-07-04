@@ -37,7 +37,7 @@ class CustomLayout extends Component {
          </Row>
        </Header>
        <Content style={{ padding: '0 50px' }}>
-			    <div style={{ minHeight: window.innerHeight - 68.8 * 3 +27.8 }}>
+			    <div style={{ minHeight: window.innerHeight - 68.8 * 3 + 50 }}>
                     <BackTop />
 			       {CustomContent}
 			    </div>

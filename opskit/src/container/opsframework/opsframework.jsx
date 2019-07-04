@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import CustomLayout from '../../component/customlayout/layout' 
-import { VideoPlay } from '../../component/videoplay/videoplay' 
+import ArticleIndex from '../../component/essay/article' 
 
-class VideoPlayPage extends Component {
+class OpsFrameworkPage extends Component {
 
     render(){
-        const customcontent = <VideoPlay/>
+        const customcontent = <ArticleIndex resourceType='opsframework' />
 	    return (
 				<CustomLayout CustomContent={customcontent}>
 				</CustomLayout>
@@ -15,4 +15,4 @@ class VideoPlayPage extends Component {
 }
 
 
-export default VideoPlayPage;
+export default OpsFrameworkPage;

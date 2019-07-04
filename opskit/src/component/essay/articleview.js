@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {Skeleton, Empty, message, Avatar, Spin, Row, Col, Card, List, Icon, PageHeader} from 'antd';
 import { withRouter  } from 'react-router-dom'
 import { connect  } from 'react-redux';
-import "video-react/dist/video-react.css";
 import reqwest from 'reqwest';
 import InfiniteScroll from 'react-infinite-scroller';
 import { getQueryString } from '../../util/searchparse_helper';

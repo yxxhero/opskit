@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom'
 import { checkAdmin, replaceAll, checkSession } from '../../util/util'
 
 const SubMenu = Menu.SubMenu;
-const menuItemList = [".video.", ".hadoop.",".index.",".web.",".database.",".docker.",".security.", ".essay.add.", ".video.play.", ".essay.view.", ".account.center.", ".account.setting.base.", ".admin.user.", ".admin.essay.", ".admin.comment."]; 
+const menuItemList = [".ops.ai.", ".ops.framework.", ".ops.skill.", ".ops.base.", ".hadoop.",".index.",".web.",".database.",".docker.",".security.", ".essay.add.", ".essay.view.", ".account.center.", ".account.setting.base.", ".admin.user.", ".admin.essay.", ".admin.comment."]; 
 
 @withRouter
 class MenuList extends Component {
@@ -27,7 +27,12 @@ class MenuList extends Component {
            style={{ lineHeight: '64px'}}
          >
            <Menu.Item key=".index." onClick={this.handleMenuClick}>首页</Menu.Item>
-           <Menu.Item key=".video." onClick={this.handleMenuClick}>视频</Menu.Item>
+           <SubMenu key="ops" title="运维技术">
+             <Menu.Item key=".ops.base." onClick={this.handleMenuClick}>基础系列</Menu.Item>
+             <Menu.Item key=".ops.skill." onClick={this.handleMenuClick}>技巧分享</Menu.Item>
+             <Menu.Item key=".ops.framework." onClick={this.handleMenuClick}>架构总览</Menu.Item>
+             <Menu.Item key=".ops.ai." onClick={this.handleMenuClick}>人工智能</Menu.Item>
+           </SubMenu>
            <Menu.Item key=".web." onClick={this.handleMenuClick}>web服务</Menu.Item>
            <Menu.Item key=".database." onClick={this.handleMenuClick}>数据库</Menu.Item>
            <Menu.Item key=".docker." onClick={this.handleMenuClick}>容器</Menu.Item>

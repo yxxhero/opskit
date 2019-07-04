@@ -10,6 +10,23 @@ const WebPage  = Loadable({
     loader: () => import('./container/web/web'),
 });
 
+const OpsBasePage  = Loadable({
+    loader: () => import('./container/opsbase/opsbase'),
+});
+
+const OpsAiPage  = Loadable({
+    loader: () => import('./container/opsai/opsai'),
+});
+
+
+const OpsSkillPage  = Loadable({
+    loader: () => import('./container/opsskill/opsskill'),
+});
+
+const OpsFrameworkPage  = Loadable({
+    loader: () => import('./container/opsframework/opsframework'),
+});
+
 const DockerPage  = Loadable({
     loader: () => import('./container/docker/docker'),
 });
@@ -26,16 +43,6 @@ const SecurityPage  = Loadable({
     loader: () => import('./container/security/security'),
 });
 
-
-const VideoPage = Loadable({
-    loader: () => import('./container/video/video'),
-
-});
-
-const VideoPlayPage = Loadable({
-    loader: () => import('./container/videoplay/videoplay'),
-
-});
 
 const AccountCenter = Loadable({
     loader: () => import('./container/account/center'),
@@ -85,12 +92,14 @@ class App extends Component {
 	<BrowserRouter>
            <Switch> 
              <Route path="/login/" exact component={LoginPage}></Route>
+             <Route path="/ops/base/" exact component={OpsBasePage}></Route>
+             <Route path="/ops/ai/" exact component={OpsAiPage}></Route>
+             <Route path="/ops/framework/" exact component={OpsFrameworkPage}></Route>
+             <Route path="/ops/skill/" exact component={OpsSkillPage}></Route>
              <Route path="/admin/user/" exact component={AdminUserPage}></Route>
              <Route path="/admin/essay/" exact component={AdminNotePage}></Route>
              <Route path="/admin/comment/" exact component={AdminCommentPage}></Route>
              <Route path="/register/" exact component={RegisterPage}></Route>
-             <Route path="/video/"  exact render={() => isLogin(<VideoPage />)}></Route>
-             <Route path="/video/play/" exact render={() => isLogin(<VideoPlayPage />, this)}></Route>
              <Route path="/web/" exact component={WebPage}></Route>
              <Route path="/database/" exact component={DatabasePage}></Route>
              <Route path="/docker/" exact component={DockerPage}></Route>
