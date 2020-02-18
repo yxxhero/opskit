@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import './layout.css';
-import logo from '../../style/img/logo.png'
-import { Layout, BackTop, Row, Col } from 'antd';
-import { TopTips } from '../../component/toptips/toptips'
-import SideBar from '../../component/sidebar/sidebar'
+import { Layout, Menu, Icon } from 'antd';
 import { withRouter } from 'react-router-dom'
-import MenuList from '../../component/menu/menu'
+// import MenuList from '../../component/menu/menu'
 
-const { Header, Footer, Content } = Layout;
+const { Header, Content, Sider } = Layout;
 
 @withRouter
 class CustomLayout extends Component {
+  state = {
+        collapsed: false,
+      
+  };
+
+  toggle = () => {
+    this.setState({
+            collapsed: !this.state.collapsed,
+          
+    });
+      
+  };
 
   componentDidMount(){
     sessionStorage.setItem('pre_url', this.props.location.pathname + this.props.location.search);
@@ -19,33 +28,44 @@ class CustomLayout extends Component {
   render() {
     const { CustomContent } = this.props; 
     return (
-     <Layout>
-       <TopTips  />
-       <Header>
-         <Row>
-           <Col span={3}>
-           <div className="logo">
-		  	<img src={logo} alt="" style={{width: 150}}/>
-           </div>
-           </Col>
-           <Col span={15}>
-		  	  <MenuList />
-            </Col>
-           <Col span={6}>
-		  	  <SideBar />
-            </Col>
-         </Row>
-       </Header>
-       <Content style={{ padding: '0 50px' }}>
-			    <div style={{ minHeight: window.innerHeight - 68.8 * 3 + 50 }}>
-                    <BackTop />
-			       {CustomContent}
-			    </div>
-       </Content>
-       <Footer style={{ textAlign: 'center' }}>
-         Aiopsclub ©2019 Created by Ant Design 
-       </Footer>
-     </Layout>
+      <Layout style={{ height: '100%' }}>
+        <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
+          <div className="logo" />
+          <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu.Item key="1">
+              <Icon type="user" />
+              <span>nav 1</span>
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Icon type="video-camera" />
+              <span>nav 2</span>
+            </Menu.Item>
+            <Menu.Item key="3">
+              <Icon type="upload" />
+              <span>nav 3</span>
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header style={{ background: '#fff', padding: 0 }}>
+            <Icon
+              className="trigger"
+              type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
+              onClick={this.toggle}
+            />
+          </Header>
+          <Content
+            style={{
+              margin: '24px 16px',
+              padding: 24,
+              background: '#fff',
+              minHeight: 280,
+            }}
+          >
+              {CustomContent}
+          </Content>
+        </Layout>
+      </Layout>
     );
   }
 }

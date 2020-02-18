@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { LocaleProvider } from 'antd';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
 import { CookiesProvider  } from 'react-cookie';
-import zhCN from 'antd/lib/locale-provider/zh_CN';
 
 import './index.css';
 import App from './App';
@@ -26,13 +26,13 @@ if (process.env.NODE_ENV === 'development') {
 
 ReactDOM.render(
   (
-   <LocaleProvider locale={zhCN}>
+   <ConfigProvider locale={zhCN}>
        <Provider store={store}>
          <CookiesProvider>
           <App />
          </CookiesProvider>
        </Provider>
-   </LocaleProvider>
+   </ConfigProvider>
 ),
  document.getElementById('root'));
 registerServiceWorker();
