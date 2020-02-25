@@ -15,6 +15,10 @@ class CustomLayout extends Component {
   componentDidMount(){
     sessionStorage.setItem('pre_url', this.props.location.pathname + this.props.location.search);
   }
+  currentYear = () => {
+    let current_datetime = new Date()
+    return current_datetime.getFullYear()
+  }
 
   render() {
     const { CustomContent } = this.props; 
@@ -43,7 +47,7 @@ class CustomLayout extends Component {
 			    </div>
        </Content>
        <Footer style={{ textAlign: 'center' }}>
-         Aiopsclub ©2019 Created by Ant Design 
+         Aiopsclub ©{this.currentYear()} Created by Ant Design 版权所有 ICP证:<a href="http://www.beian.miit.gov.cn/">京ICP备19013304号-1</a> 
        </Footer>
      </Layout>
     );
